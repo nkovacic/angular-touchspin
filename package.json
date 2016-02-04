@@ -8,12 +8,15 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
-        "angular": "~1.4"
+        "angular": "~1.4",
+        "font-awesome": "~4.5"
     },
     "devDependencies": {
-        "browser-sync-webpack-plugin": "~1.0",
+        "bootstrap-sass": "~3.3",
         "del": "~2.0",
+        "extract-text-webpack-plugin": "~0.9",
         "file-loader": "~0.8",
+        "font-awesome-webpack": "0.0",
         "gulp": "~3.9",    
         "gulp-rename": "~1.2",
         "gulp-util": "~3.0",
@@ -21,7 +24,6 @@
         "html-webpack-plugin": "~1.7",
         "imports-loader": "~0.6",
         "json-loader": "~0.5",
-        "jsontosass-loader": "~0.1",
         "ng-annotate-loader": "~0.0.10",
         "node-bourbon": "~4.2",
         "sass-loader": "~3.1.2",

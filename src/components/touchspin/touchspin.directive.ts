@@ -1,3 +1,4 @@
+import './touchspin.style.scss';
 import { TouchSpinController } from './touchspin.controller';
 
 export class TouchSpinDirective implements angular.IDirective {
@@ -5,7 +6,7 @@ export class TouchSpinDirective implements angular.IDirective {
     public require = '^ngModel';
     public scope = {};
     public bindToController = {
-        options: '=?touchSpinOptions'
+        options: '=?'
     };
     public controller = TouchSpinController;
     public controllerAs = 'vm';

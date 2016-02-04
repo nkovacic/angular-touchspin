@@ -13,28 +13,25 @@ declare module "angular-touchspin" {
 
 declare module angularTouchspin {
 	interface ITouchSpinOptions {
-		min: number;
-		max: number;
-		initval: number;
-		step: number;
-		decimals: number;
-		stepInterval: number;
-		forceStepDivisibility: string; // none | floor | round | ceil
-		stepIntervalDelay: number;
-		verticalButtons: boolean;
-		verticalUpClass: string;
-		verticalDownClass: string;
-		prefix: string;
-		postfix: string;
-		prefixExtraClass: string;
-		postfixExtraClass: string;
-		booster: boolean;
-		boostat: number;
-		maxBoostedStep: boolean;
-		mousewheel: boolean;
-		buttonDownClass: string;
-		buttonUpClass: string;
-		buttonDownTxt: string;
-		buttonUpTxt: string;
+		min?: number;
+		max?: number;
+		step?: number;
+		decimals?: number;
+		stepInterval?: number;
+		forceStepDivisibility?: string; // none | floor | round | ceil
+		stepIntervalDelay?: number;
+		verticalButtons?: boolean;
+		verticalUpClass?: string;
+		verticalDownClass?: string;
+		initVal?: number;
+		prefix?: string;
+		postfix?: string;
+		prefixExtraClass?: string;
+		postfixExtraClass?: string;
+		mousewheel?: boolean;
+		buttonDownClass?: string;
+		buttonUpClass?: string;
+		buttonDownTxt?: string;
+		buttonUpTxt?: string;
 	}
 }

@@ -11,12 +11,12 @@ gulp.task('server:dev', function(callback) {
 	myConfig.debug = true;
 
 	// Start a webpack-dev-server
-	new WebpackDevServer(webpack(webpackConfig), {
-		publicPath: '/' + webpackConfig.output.publicPath,
+	new WebpackDevServer(webpack(myConfig), {
+		contentBase: '/' + webpackConfig.output.publicPath,
 		stats: {
 			colors: true
 		}
-	}).listen(8080, '0.0.0.0', function(err) {
+	}).listen(8080, 'localhost', function(err) {
 		if(err) throw new gutil.PluginError('webpack-dev-server', err);
 		gutil.log('[webpack-dev-server]', 'http://localhost:8080/webpack-dev-server/index.html');
 	});

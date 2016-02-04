@@ -28,5 +28,5 @@ gulp.task('default', ['clean'], function() {
 });
 
 gulp.task('dev', ['clean'], function() {
-    gulp.start(['build:dev', 'watch', 'server:dev']);
+    gulp.start(['server:dev']);
 });

@@ -1,13 +1,19 @@
-var loaders = require("./loaders");
-var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var webpack = require('webpack');
+var bourbon = require('node-bourbon'),
+    loaders = require("./loaders"),
+    ExtractTextPlugin = require("extract-text-webpack-plugin"),
+    HtmlWebpackPlugin = require('html-webpack-plugin'),
+    webpack = require('webpack');
 
 module.exports = {
-    entry: ['./src/index.ts'],
+    entry: ['./dev/index.ts'],
     output: {
         filename: 'build.js',
-        path: 'dev'
+        libraryTarget: 'umd',
+        library: 'angular-touchspin',
+        path: __dirname +'/dev'
+    },
+    externals: {
+        'jquery': 'jQuery'
     },
     resolve: {
         root: __dirname,
@@ -16,22 +22,23 @@ module.exports = {
     resolveLoader: {
         modulesDirectories: ["node_modules"]
     },
-    devtool: "source-map",
+    devtool: "eval",
+    cssLoader: {
+        sourceMap: true
+    },
+    sassLoader: {
+        includePaths: bourbon.includePaths,
+        sourceMap: true,
+    },
+    styleLoader: {
+        sourceMap: true
+    },
     plugins: [
+        new ExtractTextPlugin("bundle.css"),
         new HtmlWebpackPlugin({
-            template: './src/index.html',
+            template: './dev/index.html',
             inject: 'body',
             hash: true
-        }),
-        new BrowserSyncPlugin({
-            host: 'localhost',
-            port: 8080,
-            server: {
-                baseDir: 'dev'
-            },
-            ui: false,
-            online: false,
-            notify: false
         }),
         new webpack.ProvidePlugin({
             $: 'jquery',

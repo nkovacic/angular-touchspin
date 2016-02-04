@@ -31,3 +31,15 @@ node_modules
 
 # Optional REPL history
 .node_repl_history
+
+# Build directory
+dist
+
+# Test reports directory
+reports
+
+# TypeScript typings
+typings
+
+out
+

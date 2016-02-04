@@ -1,0 +1,7 @@
+{
+    "ambientDependencies": {
+        "angular": "github:DefinitelyTyped/DefinitelyTyped/angularjs/angular.d.ts#3bebbe1baee04846cc46ed7249e8117e4cd7c7ff",
+        "jquery": "github:DefinitelyTyped/DefinitelyTyped/jquery/jquery.d.ts#bb051830df88f5a55dcf06b7fe85bf6b62cc97f2",
+        "webpack": "github:DefinitelyTyped/DefinitelyTyped/webpack/webpack-env.d.ts#b5956f2bef11b743b05366023f619039f2ba3c1a"
+    }
+}

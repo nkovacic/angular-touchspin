@@ -1,5 +1,5 @@
 export class TouchSpinController {
-	public options: angularTouchspin.ITouchSpinOptions;
+	public options: angularTouchSpin.ITouchSpinOptions;
 	public val: string;
 
 	private clickStart: number;
@@ -9,7 +9,7 @@ export class TouchSpinController {
 	private oldVal: string;
 	private timeout: angular.IPromise<any>;
 	private timer: angular.IPromise<any>;
-	private touchSpinOptions: angularTouchspin.ITouchSpinOptions;
+	private touchSpinOptions: angularTouchSpin.ITouchSpinOptions;
 
 	constructor(private $scope: angular.IScope, private $element: angular.IAugmentedJQuery, private $interval: angular.IIntervalService,
 		private $timeout: angular.ITimeoutService) {
@@ -74,7 +74,7 @@ export class TouchSpinController {
 
 	private initializeEvents() {
 		this.inputElement.on('mousewheel DOMMouseScroll', (ev: MouseWheelEvent) => {
-			if (this.touchSpinOptions.mousewheel) {
+			if (!this.touchSpinOptions.mousewheel) {
 				return;
 			}
 
@@ -100,16 +100,19 @@ export class TouchSpinController {
 		};*/
 	}
 	private prepareOptions() {
-		let defaultOptions: angularTouchspin.ITouchSpinOptions = {
+		let defaultOptions: angularTouchSpin.ITouchSpinOptions = {
 			max: 100,
 			min: 0,
 			step: 1,
 			initVal: 0,
+			mousewheel: true,
 			prefix: '',
 			postfix: '',
 			decimals: 0,
 			stepInterval: 100,
-			stepIntervalDelay: 500
+			stepIntervalDelay: 500,
+			verticalDownClass: 'glyphicon glyphicon-chevron-down',
+			verticalUpClass: 'glyphicon glyphicon-chevron-up'
 		};
 		this.touchSpinOptions = angular.extend({}, defaultOptions, this.options);
 		this.val = (this.ngModelController.$modelValue || this.touchSpinOptions.initVal || this.touchSpinOptions.min).toFixed(this.touchSpinOptions.decimals);

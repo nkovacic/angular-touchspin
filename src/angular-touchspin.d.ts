@@ -11,7 +11,7 @@ declare module "angular-touchspin" {
     export = _;
 }
 
-declare module angularTouchspin {
+declare module angularTouchSpin {
 	interface ITouchSpinOptions {
 		min?: number;
 		max?: number;
@@ -33,5 +33,11 @@ declare module angularTouchspin {
 		buttonUpClass?: string;
 		buttonDownTxt?: string;
 		buttonUpTxt?: string;
+	}
+
+	interface ITouchSpinConfig extends ITouchSpinOptions { }
+
+	interface ITouchSpinConfigProvider {
+		defaults (touchSpinOptions: ITouchSpinOptions): void;
 	}
 }

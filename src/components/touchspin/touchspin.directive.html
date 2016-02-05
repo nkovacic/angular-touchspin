@@ -1,19 +1,17 @@
 <div class="input-group">
     <span class="input-group-btn" ng-show="!vm.verticalButtons">
-        <button class="btn btn-default" ng-mousedown="vm.startSpinDown()" ng-mouseup="vm.stopSpin()">
-            <i class="fa fa-minus">
-            </i>
+        <button class="btn btn-default" ng-class="vm.touchSpinOptions.buttonDownClass" ng-mousedown="vm.startSpinDown()" ng-mouseup="vm.stopSpin()">
+            -
         </button>
     </span>
     <span class="input-group-addon" ng-show="prefix" ng-bind="prefix">
     </span>
     <input type="text" ng-model="vm.val" class="form-control" ng-blur="vm.checkValue()" ng-focus="vm.focus()"/>
-    <span class="input-group-addon" ng-show="vm.postfix" ng-bind="vm.postfix">
+    <span class="input-group-addon" ng-class="vm.touchSpinOptions.postfixExtraClass" ng-show="vm.touchSpinOptions.postfix" ng-bind="vm.touchSpinOptions.postfix">
     </span>
     <span class="input-group-btn" ng-show="!vm.verticalButtons">
-        <button class="btn btn-default" ng-mousedown="vm.startSpinUp()" ng-mouseup="vm.stopSpin()">
-            <i class="fa fa-plus">
-            </i>
+        <button class="btn btn-default" ng-class="vm.touchSpinOptions.buttonUpClass" ng-mousedown="vm.startSpinUp()" ng-mouseup="vm.stopSpin()">
+            +
         </button>
     </span>
 </div>

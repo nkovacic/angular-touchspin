@@ -5,4 +5,9 @@ import { MainController } from './controllers/main.controller';
 
 export default angular
 	.module('lm.main', [touchspinModule.name])
-	.controller('MainController', MainController);
+	.controller('MainController', MainController)
+	.config(function(touchSpinConfigProvider: angularTouchSpin.ITouchSpinConfigProvider) {
+		touchSpinConfigProvider.defaults(<angularTouchSpin.ITouchSpinOptions>{
+			decimals: 2
+		});
+	});

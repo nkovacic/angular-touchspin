@@ -4,6 +4,7 @@ export class TouchSpinController {
 
 	private clickStart: number;
 	private focused: boolean;
+	private inputElement: angular.IAugmentedJQuery;
 	private ngModelController: angular.INgModelController;
 	private oldVal: string;
 	private timeout: angular.IPromise<any>;
@@ -14,8 +15,11 @@ export class TouchSpinController {
 		private $timeout: angular.ITimeoutService) {
 		'ngInject';
 
+		this.inputElement = this.$element.find('input');
+		
 		this.prepareNgModel();
-		this.prepareNgModel();
+		this.prepareOptions();
+		this.initializeEvents();
 	}
 
 	startSpinUp () {
@@ -68,12 +72,32 @@ export class TouchSpinController {
 		this.focused = true;
 	}
 
+	private initializeEvents() {
+		this.inputElement.on('mousewheel DOMMouseScroll', (ev: MouseWheelEvent) => {
+			if (this.touchSpinOptions.mousewheel) {
+				return;
+			}
+
+			let delta = ev.wheelDelta || -ev.wheelDeltaY || -ev.detail;
+
+			ev.stopPropagation();
+			ev.preventDefault();
+
+			if (delta < 0) {
+				this.decrement();
+			}
+			else {
+				this.increment();
+			}
+		});
+	}
 	private prepareNgModel() {
 		this.ngModelController = this.$element.controller('ngModel');
-
+		/*
 		this.ngModelController.$render = () => {
+			if (!angular.isUndefined(this.ngModelController.$viewValue) && isNaN(this.ngModelController.$viewValue))
 			this.val = this.ngModelController.$viewValue;
-		};
+		};*/
 	}
 	private prepareOptions() {
 		let defaultOptions: angularTouchspin.ITouchSpinOptions = {
@@ -88,7 +112,7 @@ export class TouchSpinController {
 			stepIntervalDelay: 500
 		};
 		this.touchSpinOptions = angular.extend({}, defaultOptions, this.options);
-		this.val = this.ngModelController.$modelValue || this.touchSpinOptions.initVal;
+		this.val = (this.ngModelController.$modelValue || this.touchSpinOptions.initVal || this.touchSpinOptions.min).toFixed(this.touchSpinOptions.decimals);
 	}
 	private decrement () {
 		this.oldVal = this.val;
@@ -105,7 +129,6 @@ export class TouchSpinController {
 		this.val = value.toFixed(this.touchSpinOptions.decimals);
 		this.ngModelController.$setViewValue(value);
 	}
-
 	private increment () {
 		this.oldVal = this.val;
 

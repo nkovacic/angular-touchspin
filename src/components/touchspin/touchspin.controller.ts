@@ -12,7 +12,7 @@ export class TouchSpinController {
 	private touchSpinOptions: angularTouchSpin.ITouchSpinOptions;
 
 	constructor(private $scope: angular.IScope, private $element: angular.IAugmentedJQuery, private $interval: angular.IIntervalService,
-		private $timeout: angular.ITimeoutService) {
+		private $timeout: angular.ITimeoutService, private touchSpinConfig: angularTouchSpin.ITouchSpinConfig) {
 		'ngInject';
 
 		this.inputElement = this.$element.find('input');
@@ -100,21 +100,7 @@ export class TouchSpinController {
 		};*/
 	}
 	private prepareOptions() {
-		let defaultOptions: angularTouchSpin.ITouchSpinOptions = {
-			max: 100,
-			min: 0,
-			step: 1,
-			initVal: 0,
-			mousewheel: true,
-			prefix: '',
-			postfix: '',
-			decimals: 0,
-			stepInterval: 100,
-			stepIntervalDelay: 500,
-			verticalDownClass: 'glyphicon glyphicon-chevron-down',
-			verticalUpClass: 'glyphicon glyphicon-chevron-up'
-		};
-		this.touchSpinOptions = angular.extend({}, defaultOptions, this.options);
+		this.touchSpinOptions = angular.extend({}, this.touchSpinConfig, this.options);
 		this.val = (this.ngModelController.$modelValue || this.touchSpinOptions.initVal || this.touchSpinOptions.min).toFixed(this.touchSpinOptions.decimals);
 	}
 	private decrement () {

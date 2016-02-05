@@ -8,6 +8,7 @@ export default angular
 	.controller('MainController', MainController)
 	.config(function(touchSpinConfigProvider: angularTouchSpin.ITouchSpinConfigProvider) {
 		touchSpinConfigProvider.defaults(<angularTouchSpin.ITouchSpinOptions>{
-			decimals: 2
+			decimals: 2,
+			verticalButtons: true
 		});
 	});

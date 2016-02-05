@@ -3,6 +3,8 @@ export class TouchSpinConfig implements angularTouchSpin.ITouchSpinConfigProvide
 
 	constructor() {
 		this.defaultTouchSpinOptions = {
+			buttonDownClass: 'btn btn-default',
+			buttonUpClass: 'btn btn-default',
 			decimals: 0,
 			max: 100,
 			min: 0,

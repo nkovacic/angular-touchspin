@@ -1,17 +1,25 @@
-<div class="input-group">
-    <span class="input-group-btn" ng-show="!vm.verticalButtons">
-        <button class="btn btn-default" ng-class="vm.touchSpinOptions.buttonDownClass" ng-mousedown="vm.startSpinDown()" ng-mouseup="vm.stopSpin()">
+<div class="input-group bootstrap-touchspin">
+    <span class="input-group-btn" ng-if="!vm.touchSpinOptions.verticalButtons">
+        <button ng-class="vm.touchSpinOptions.buttonDownClass" ng-mousedown="vm.startSpinDown()" ng-mouseup="vm.stopSpin()">
             -
         </button>
     </span>
-    <span class="input-group-addon" ng-show="prefix" ng-bind="prefix">
+    <span class="input-group-addon" ng-if="prefix" ng-bind="prefix">
     </span>
     <input type="text" ng-model="vm.val" class="form-control" ng-blur="vm.checkValue()" ng-focus="vm.focus()"/>
-    <span class="input-group-addon" ng-class="vm.touchSpinOptions.postfixExtraClass" ng-show="vm.touchSpinOptions.postfix" ng-bind="vm.touchSpinOptions.postfix">
+    <span class="input-group-addon" ng-class="vm.touchSpinOptions.postfixExtraClass" ng-if="vm.touchSpinOptions.postfix" ng-bind="vm.touchSpinOptions.postfix">
     </span>
-    <span class="input-group-btn" ng-show="!vm.verticalButtons">
+    <span class="input-group-btn" ng-if="!vm.touchSpinOptions.verticalButtons">
         <button class="btn btn-default" ng-class="vm.touchSpinOptions.buttonUpClass" ng-mousedown="vm.startSpinUp()" ng-mouseup="vm.stopSpin()">
             +
         </button>
+    </span>
+    <span class="input-group-btn-vertical" ng-if="vm.touchSpinOptions.verticalButtons">
+        <button class="bootstrap-touchspin-down" ng-class="vm.touchSpinOptions.buttonUpClass" ng-mousedown="vm.startSpinDown()" ng-mouseup="vm.stopSpin()" type="button">
+            <i ng-class="vm.touchSpinOptions.verticalUpClass"></i>
+        </button>
+        <button class="bootstrap-touchspin-up" ng-class="vm.touchSpinOptions.buttonUpClass" ng-mousedown="vm.startSpinUp()" ng-mouseup="vm.stopSpin()" type="button">
+            <i ng-class="vm.touchSpinOptions.verticalDownClass"></i>
+        </button>      
     </span>
 </div>

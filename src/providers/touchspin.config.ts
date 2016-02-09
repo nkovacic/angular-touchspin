@@ -15,6 +15,7 @@ export class TouchSpinConfig implements angularTouchSpin.ITouchSpinConfigProvide
 			postfix: '',
 			stepInterval: 100,
 			stepIntervalDelay: 500,
+			verticalButtons: false,
 			verticalDownClass: 'glyphicon glyphicon-chevron-down',
 			verticalUpClass: 'glyphicon glyphicon-chevron-up'
 		}

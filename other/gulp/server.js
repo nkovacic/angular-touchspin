@@ -1,18 +1,16 @@
-var gulp = require('gulp');
-var gutil = require('gulp-util');
-var webpack = require('webpack');
-var WebpackDevServer = require('webpack-dev-server');
-var webpackConfig = require('../webpack/webpack.dev');
+var gulp = require('gulp'),
+	gutil = require('gulp-util'),
+	conf = require('../conf'),
+	webpack = require('webpack'),
+	WebpackDevServer = require('webpack-dev-server'),
+	webpackConfig = require('../webpack/webpack');
 
 gulp.task('server:dev', function(callback) {
 	// modify some webpack config options
-	var myConfig = Object.create(webpackConfig);
-	myConfig.devtool = 'eval';
-	myConfig.debug = true;
-
+	var webpackDevConfig = webpackConfig(conf.tags.dev);
 	// Start a webpack-dev-server
-	new WebpackDevServer(webpack(myConfig), {
-		contentBase: '/' + webpackConfig.output.publicPath,
+	new WebpackDevServer(webpack(webpackDevConfig), {
+		contentBase: webpackDevConfig.output.path,
 		stats: {
 			colors: true
 		}

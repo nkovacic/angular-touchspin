@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-var conf = require('./conf');
+var conf = require('../conf');
 var path = require('path');
 
 gulp.task('watch', function() {

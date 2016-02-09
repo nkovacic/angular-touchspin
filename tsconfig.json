@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "target": "es5",
+        "target": "es6",
         "module": "commonjs",
         "declaration": true,
         "removeComments": true,
@@ -8,8 +8,9 @@
     },
     "compileOnSave": false,
     "exclude": [
+        "node_modules",
+        "src/angular-touchspin.d.ts",
         "typings/main.d.ts",
-        "typings/main",
-        "node_modules"
+        "typings/main"      
     ]
 }

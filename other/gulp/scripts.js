@@ -3,16 +3,14 @@
 var path = require('path');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
-var conf = require('./conf');
+var conf = require('../conf');
 
 var webpack = require('webpack');
-var webpackBuildConfig = require('../webpack/webpack.build');
-var webpackDevConfig = require('../webpack/webpack.dev');
-var webpackDistConfig = require('../webpack/webpack.dist');
+var webpackConfig = require('../webpack/webpack');
 
 gulp.task('scripts:build', function(callback) {
 	// run webpack
-	webpack(webpackBuildConfig, function(err, stats) {
+	webpack(webpackConfig(conf.tags.build), function(err, stats) {
 		if(err) throw new gutil.PluginError("scripts:build", err);
 		gutil.log("scripts:build", stats.toString({
 			colors: true
@@ -23,7 +21,7 @@ gulp.task('scripts:build', function(callback) {
 
 gulp.task('scripts:build-dist', function(callback) {
 	// run webpack
-	webpack(webpackDistConfig, function(err, stats) {
+	webpack(webpackConfig(conf.tags.dist), function(err, stats) {
 		if(err) throw new gutil.PluginError("scripts:build-dist", err);
 		gutil.log("scripts:build-dist", stats.toString({
 			colors: true
@@ -32,7 +30,7 @@ gulp.task('scripts:build-dist', function(callback) {
 	});
 });
 
-var devCompiler = webpack(webpackDevConfig);
+var devCompiler = webpack(webpackConfig(conf.tags.dev));
 
 gulp.task('scripts:build-dev', function(callback) {
 	devCompiler.run(function(err, stats) {

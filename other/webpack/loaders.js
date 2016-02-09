@@ -6,7 +6,7 @@ module.exports = [{
     exclude: /(node_modules|bower_components)/
 }, {
     test: /\.ts$/,
-    loader: 'ng-annotate!ts-loader',
+    loader: 'ng-annotate!babel-loader!ts-loader',
     exclude: /node_modules/
 }, {
     test: /\.css$/,

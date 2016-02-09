@@ -9,6 +9,6 @@ export default angular
 	.config(function(touchSpinConfigProvider: angularTouchSpin.ITouchSpinConfigProvider) {
 		touchSpinConfigProvider.defaults(<angularTouchSpin.ITouchSpinOptions>{
 			decimals: 2,
-			verticalButtons: true
+			verticalButtons: false
 		});
 	});

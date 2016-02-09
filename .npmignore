@@ -14,6 +14,9 @@ karma.conf.js
 #bower files
 bower.json
 
+#src files
+src/angular-touchspin.d.ts
+
 #TypeScript files 
 typings
 typings.json

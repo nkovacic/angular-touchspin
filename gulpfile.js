@@ -27,7 +27,7 @@ gulp.task('default', ['clean'], function() {
     gulp.start('build');
 });
 
-gulp.task('dev', ['clean'], function() {
+gulp.task('dev', function() {
     gulp.start(['server:dev']);
 });
 

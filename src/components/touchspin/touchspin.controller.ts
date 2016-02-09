@@ -93,11 +93,6 @@ export class TouchSpinController {
 	}
 	private prepareNgModel() {
 		this.ngModelController = this.$element.controller('ngModel');
-		/*
-		this.ngModelController.$render = () => {
-			if (!angular.isUndefined(this.ngModelController.$viewValue) && isNaN(this.ngModelController.$viewValue))
-			this.val = this.ngModelController.$viewValue;
-		};*/
 	}
 	private prepareOptions() {
 		this.touchSpinOptions = angular.extend({}, this.touchSpinConfig, this.options);

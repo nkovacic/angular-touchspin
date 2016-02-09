@@ -64,7 +64,7 @@ Download the code from [https://github.com/nkovacic/angular-touchspin/releases/l
 
 3. Include `angular-touchspin.min.js`
 4. Add a dependency to `angular-touchspin` in your app module, for example: ```angular.module('myModule', ['angular-touchspin'])```.
-5. Create an element to hold the editor and add an `ng-model="htmlVariable"` attribute where `htmlVariable` is the scope variable that will hold the HTML entered into the editor:
+5. Create an element to hold the control and add an `ng-model="numberVariable"` attribute where `numberVariable` is the scope variable that will hold the selected number value:
 ```html
 <div touch-spin ng-model="numberVariable"></div>
 ```

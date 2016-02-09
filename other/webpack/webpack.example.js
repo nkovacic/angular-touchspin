@@ -4,12 +4,12 @@ var loaders = require('./loaders'),
     webpack = require('webpack');
 
 module.exports = {
-    entry: ['./dev/index.ts'],
+    entry: ['./example/index.ts'],
     output: {
         filename: 'build.js',
         libraryTarget: 'umd',
         library: 'angular-touchspin',
-        path: './dev'
+        path: __dirname +'/example'
     },
     externals: {
         'jquery': 'jQuery'
@@ -34,7 +34,7 @@ module.exports = {
     plugins: [
         new ExtractTextPlugin('bundle.css'),
         new HtmlWebpackPlugin({
-            template: './dev/index.html',
+            template: './example/index.html',
             inject: 'body',
             hash: true
         }),

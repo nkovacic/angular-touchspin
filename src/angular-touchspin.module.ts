@@ -5,5 +5,6 @@ import { TouchSpinConfig } from './providers/touchspin.config';
 export default AngularES6
 	.module('lm.touchspin')
 	.directive('touchSpin', TouchSpinDirective)
-	.provider('touchSpinConfig', TouchSpinConfig);
+	.provider('touchSpinConfig', TouchSpinConfig)
+	.name;
 	

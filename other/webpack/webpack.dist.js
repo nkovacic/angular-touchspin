@@ -4,40 +4,30 @@ var loaders = require('./loaders'),
     webpack = require('webpack');
 
 module.exports = {
-    entry: ['./dev/index.ts'],
+    entry: ['./src/angular-touchspin.module.ts'],
     output: {
-        filename: 'build.js',
+        filename: 'angular-touchspin.js',
         libraryTarget: 'umd',
         library: 'angular-touchspin',
-        path: './dev'
+        path: './dist'
     },
     externals: {
+        'angular': 'angular',
         'jquery': 'jQuery'
     },
     resolve: {
-        root: __dirname,
-        extensions: ['', '.ts', '.js', '.json', '.scss']
+        root: './',
+        extensions: ['', '.ts', '.js', '.scss']
     },
     resolveLoader: {
         modulesDirectories: ['node_modules']
     },
-    devtool: 'eval',
-    cssLoader: {
-        sourceMap: true
-    },
-    sassLoader: {
-        sourceMap: true,
-    },
-    styleLoader: {
-        sourceMap: true
-    },
     plugins: [
-        new ExtractTextPlugin('bundle.css'),
-        new HtmlWebpackPlugin({
-            template: './dev/index.html',
-            inject: 'body',
-            hash: true
-        }),
+        new ExtractTextPlugin('angular-touchspin.min.css'),
+        new webpack.optimize.DedupePlugin(),
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.optimize.AggressiveMergingPlugin(),
+        new webpack.optimize.UglifyJsPlugin(),        
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery',

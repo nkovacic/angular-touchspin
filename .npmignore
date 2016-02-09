@@ -1,0 +1,21 @@
+#Development examples
+dev
+
+#Examples
+example
+
+#Build tools
+other
+gulpfile.js
+
+.travis.yml
+karma.conf.js
+
+#bower files
+bower.json
+
+#TypeScript files 
+typings
+typings.json
+tsconfig.json
+tslint.json

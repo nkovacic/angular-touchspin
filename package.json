@@ -1,15 +1,26 @@
 {
-    "author": "Niko Kovačič <niko.kovacic2@gmail.com",
     "name": "angular-touchspin",
-    "title": "Angular TouchSpin",
-    "description": "",
-    "main": "./dist/angular-touchspin.js",
+    "version": "1.0.0",
+    "author": "Niko Kovačič <niko.kovacic2@gmail.com",
+    "title": "Angular Touchspin",
+    "description": "A input spinner component for Bootstrap 3 and angular",
     "typings": "./src/angular-touchspin.d.ts",
-    "version": "0.1.0",
-    "private": true,
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/nkovacic/angular-touchspin.git"
+    },
+    "keywords": [
+        "angular",
+        "bootstrap",
+        "angular-touchspin",
+        "touchspin",
+        "angularjs",
+        "angular touchspin"
+    ],
+    "main": "./dist/angular-touchspin.js",
+    "licence": "MIT",
     "dependencies": {
-        "angular": "~1.4",
-        "font-awesome": "~4.5"
+        "angular": "~1.4"
     },
     "devDependencies": {
         "bootstrap-sass": "~3.3",
@@ -17,7 +28,7 @@
         "extract-text-webpack-plugin": "~0.9",
         "file-loader": "~0.8",
         "font-awesome-webpack": "0.0",
-        "gulp": "~3.9",    
+        "gulp": "~3.9",
         "gulp-rename": "~1.2",
         "gulp-util": "~3.0",
         "html-loader": "~0.4",
@@ -25,7 +36,6 @@
         "imports-loader": "~0.6",
         "json-loader": "~0.5",
         "ng-annotate-loader": "~0.0.10",
-        "node-bourbon": "~4.2",
         "sass-loader": "~3.1.2",
         "style-loader": "~0.13",
         "tslint": "~3.2",

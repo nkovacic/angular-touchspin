@@ -1,18 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Angular typescript webpack</title>
-</head>
-<body ng-controller="MainController as vm">
-	 <form class="form-horizontal" role="form">
-        <div class="form-group">
-            <label for="demo2" class="col-md-4 control-label">Example:</label> 
-       		<div class="col-md-8">
-       			<touch-spin ng-model="vm.currency" options="vm.touchSpinOptions"></touch-spin>
-            </div>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>
+            Angular typescript webpack
+        </title>
+    </head>
+    <body ng-controller="MainController as vm">
+        <div class="container">
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label for="demo2" class="col-md-4 control-label">
+                        Example:
+                    </label>
+                    <div class="col-md-8">
+                        <touch-spin ng-model="vm.currency" options="vm.touchSpinOptions">
+                        </touch-spin>
+                    </div>
+                </div>
+            </form>
         </div>
-    </form>
-	<script src="http://localhost:8080/webpack-dev-server.js"></script>
-</body>
+        <script src="http://localhost:8080/webpack-dev-server.js">
+        </script>
+    </body>
 </html>

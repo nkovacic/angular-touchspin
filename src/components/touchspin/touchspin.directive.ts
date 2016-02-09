@@ -1,4 +1,4 @@
-import './touchspin.style.scss';
+import './touchspin.style';
 import { TouchSpinController } from './touchspin.controller';
 
 export class TouchSpinDirective implements angular.IDirective {

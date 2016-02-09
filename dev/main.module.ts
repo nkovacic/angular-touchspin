@@ -1,10 +1,10 @@
-import './styles/vendor.scss';
+import './styles/vendor';
 import 'font-awesome-webpack';
 import touchspinModule from '../src/angular-touchspin.module';
 import { MainController } from './controllers/main.controller';
 
 export default angular
-	.module('lm.main', [touchspinModule.name])
+	.module('lm.main', [touchspinModule])
 	.controller('MainController', MainController)
 	.config(function(touchSpinConfigProvider: angularTouchSpin.ITouchSpinConfigProvider) {
 		touchSpinConfigProvider.defaults(<angularTouchSpin.ITouchSpinOptions>{

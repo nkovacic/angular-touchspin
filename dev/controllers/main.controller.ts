@@ -1,6 +1,6 @@
 export class MainController {
 	public touchSpinOptions: angularTouchSpin.ITouchSpinOptions;
-	public value: number;
+	public currency: number;
 
 	constructor() {
 		this.touchSpinOptions = {

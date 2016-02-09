@@ -4,7 +4,6 @@
     "author": "Niko Kovačič <niko.kovacic2@gmail.com",
     "title": "Angular Touchspin",
     "description": "A input spinner component for Bootstrap 3 and angular",
-    "typings": "./src/angular-touchspin.d.ts",
     "repository": {
         "type": "git",
         "url": "https://github.com/nkovacic/angular-touchspin.git"

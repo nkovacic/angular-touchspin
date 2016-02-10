@@ -11,8 +11,8 @@ export class TouchSpinController {
 	private timer: angular.IPromise<any>;
 	private touchSpinOptions: angularTouchSpin.ITouchSpinOptions;
 
-	constructor(private $scope: angular.IScope, private $element: angular.IAugmentedJQuery, private $interval: angular.IIntervalService,
-		private $timeout: angular.ITimeoutService, private touchSpinConfig: angularTouchSpin.ITouchSpinConfig) {
+	constructor(private $scope: angular.IScope, private $element: angular.IAugmentedJQuery, private $attrs: angular.IAttributes,
+		private $interval: angular.IIntervalService, private $timeout: angular.ITimeoutService, private touchSpinConfig: angularTouchSpin.ITouchSpinConfig) {
 		'ngInject';
 
 		this.inputElement = this.$element.find('input');
@@ -62,8 +62,22 @@ export class TouchSpinController {
 		let val: string;
 
 		if (this.val !== '' && !this.val.match(/^-?(?:\d+|\d*\.\d+)$/i)) {
-			this.val = this.oldVal !== '' ? parseFloat(this.oldVal).toFixed(this.touchSpinOptions.decimals) : this.touchSpinOptions.min.toFixed(this.touchSpinOptions.decimals);
-			this.ngModelController.$setViewValue(val);
+			if (this.oldVal !== '') {
+				this.changeValue(parseFloat(this.oldVal))
+			}
+			else {
+				this.changeValue(this.touchSpinOptions.min);
+			}
+		}
+		else {
+			let value = parseFloat(this.val);
+
+			if (value > this.touchSpinOptions.max) {
+				this.changeValue(this.touchSpinOptions.max);
+			}
+			else if (value < this.touchSpinOptions.min) {
+				this.changeValue(this.touchSpinOptions.min);
+			}
 		}
 
 		this.focused = false;
@@ -78,11 +92,8 @@ export class TouchSpinController {
 				return;
 			}
 
-			let delta = (<any>ev).wheelDelta || -(<any>ev).wheelDeltaY || -(<any>ev).detail;
-			
-			if (!isFinite(delta) && ev.originalEvent) {
-				delta = (<MouseWheelEvent>ev.originalEvent).wheelDelta || -(<MouseWheelEvent>ev.originalEvent).wheelDeltaY || -(<MouseWheelEvent>ev.originalEvent).detail;
-			}
+			let delta = !angular.isUndefined(ev.originalEvent) ? (<MouseWheelEvent>ev.originalEvent).wheelDelta || -(<MouseWheelEvent>ev.originalEvent).wheelDeltaY 
+				|| -(<MouseWheelEvent>ev.originalEvent).detail : (<any>ev).wheelDelta || -(<any>ev).wheelDeltaY || -(<any>ev).detail
 
 			ev.stopPropagation();
 			ev.preventDefault();
@@ -102,20 +113,30 @@ export class TouchSpinController {
 		this.touchSpinOptions = angular.extend({}, this.touchSpinConfig, this.options);
 		this.val = (this.ngModelController.$modelValue || this.touchSpinOptions.initVal || this.touchSpinOptions.min).toFixed(this.touchSpinOptions.decimals);
 	}
+	private changeValue (value: number) {
+		let decimalValue = Math.pow(10, this.touchSpinOptions.decimals);
+
+		value = Math.round(value * decimalValue) / decimalValue;
+
+		this.val = value.toFixed(this.touchSpinOptions.decimals);
+		this.ngModelController.$setViewValue(value);
+
+		if ((<any>this.$attrs).onChange) {
+			(<any>this).onChange({ value: value });
+		}
+	}
 	private decrement () {
 		this.oldVal = this.val;
 
 		let value = parseFloat(this.val) - this.touchSpinOptions.step;
 
 		if (value < this.touchSpinOptions.min) {
-			this.val = this.touchSpinOptions.min.toFixed(this.touchSpinOptions.decimals);
-			this.ngModelController.$setViewValue(value);
+			this.changeValue(this.touchSpinOptions.min);
 
 			return;
 		}
 
-		this.val = value.toFixed(this.touchSpinOptions.decimals);
-		this.ngModelController.$setViewValue(value);
+		this.changeValue(value);
 	}
 	private increment () {
 		this.oldVal = this.val;
@@ -123,10 +144,11 @@ export class TouchSpinController {
 		let value = parseFloat(this.val) + this.touchSpinOptions.step;
 
 		if (value > this.touchSpinOptions.max) {
+			this.changeValue(this.touchSpinOptions.max);
+
 			return;
 		}
 
-		this.val = value.toFixed(this.touchSpinOptions.decimals) ;
-		this.ngModelController.$setViewValue(value);
+		this.changeValue(value);
 	}
 }

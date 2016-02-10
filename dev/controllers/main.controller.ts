@@ -11,5 +11,9 @@ export class MainController {
 			prefix: '$',
 			postfix: '%'
 		};
-	}	
+	}
+
+	onTouchSpinChange(value: number) {
+		console.log(value)
+	}
 }

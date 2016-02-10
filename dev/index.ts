@@ -1,3 +1,4 @@
+import * as $ from 'jquery';
 import * as angular from 'angular';
 import mainModule from './main.module';
 

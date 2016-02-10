@@ -62,7 +62,7 @@ function getDevConfig(env) {
             filename: 'build.js',
             path: '/dev'
         },
-        devtool: 'source-map',
+        devtool: 'eval',
         plugins: _.concat(getCommonPlugins(env), 
             new ExtractTextPlugin('build.css'),
             new HtmlWebpackPlugin({

@@ -1,6 +1,6 @@
 {
     "name": "angular-touchspin",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "author": "Niko Kovačič <niko.kovacic2@gmail.com>",
     "title": "Angular Touchspin",
     "description": "A input spinner component for Bootstrap 3 and angular",
@@ -19,8 +19,7 @@
     "main": "./dist/angular-touchspin.js",
     "licence": "MIT",
     "dependencies": {
-        "angular": "~1.4",
-        "jquery": "~2.2"
+        "angular": "~1.4"
     },
     "devDependencies": {
         "babel": "5.8.23",
@@ -36,6 +35,7 @@
         "html-loader": "~0.4",
         "html-webpack-plugin": "~1.7",
         "imports-loader": "~0.6",
+        "jquery": "~2.2",
         "lodash": "~4.3",
         "ng-annotate-loader": "~0.0.10",
         "sass-loader": "~3.1.2",

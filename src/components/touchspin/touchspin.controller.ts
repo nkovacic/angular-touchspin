@@ -73,12 +73,16 @@ export class TouchSpinController {
 	}
 
 	private initializeEvents() {
-		this.inputElement.on('mousewheel DOMMouseScroll', (ev: MouseWheelEvent) => {
+		this.inputElement.on('mousewheel DOMMouseScroll', (ev: JQueryMouseEventObject) => {
 			if (!this.touchSpinOptions.mousewheel) {
 				return;
 			}
 
-			let delta = ev.wheelDelta || -ev.wheelDeltaY || -ev.detail;
+			let delta = (<any>ev).wheelDelta || -(<any>ev).wheelDeltaY || -(<any>ev).detail;
+			
+			if (!isFinite(delta) && ev.originalEvent) {
+				delta = (<MouseWheelEvent>ev.originalEvent).wheelDelta || -(<MouseWheelEvent>ev.originalEvent).wheelDeltaY || -(<MouseWheelEvent>ev.originalEvent).detail;
+			}
 
 			ev.stopPropagation();
 			ev.preventDefault();

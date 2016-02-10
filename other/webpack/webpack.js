@@ -46,9 +46,6 @@ function getCommonConfig() {
             root: __dirname,
             extensions: ['', '.ts', '.js', '.json', '.scss']
         },
-        externals: {
-            jquery: 'jQuery'
-        },
         module: {
             loaders: loaders
         },
@@ -102,7 +99,8 @@ function getDistConfig(env) {
             path: conf.paths.dist
         },
         externals: {
-            angular: 'angular'
+            angular: 'angular',
+            jquery: 'jQuery'
         },
         plugins: _.concat(getCommonPlugins(env), [
             new ExtractTextPlugin('angular-touchspin.min.css'),

@@ -8,6 +8,7 @@ export class MainController {
 			max: 100,
 			min: 1,
 			step: 0.1,
+			prefix: '$',
 			postfix: '%'
 		};
 	}	

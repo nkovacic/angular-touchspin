@@ -4,7 +4,7 @@
             -
         </button>
     </span>
-    <span class="input-group-addon" ng-if="prefix" ng-bind="prefix">
+    <span class="input-group-addon" ng-if="vm.touchSpinOptions.prefix" ng-bind="vm.touchSpinOptions.prefix">
     </span>
     <input type="text" ng-model="vm.val" class="form-control" ng-blur="vm.checkValue()" ng-focus="vm.focus()"/>
     <span class="input-group-addon" ng-class="vm.touchSpinOptions.postfixExtraClass" ng-if="vm.touchSpinOptions.postfix" ng-bind="vm.touchSpinOptions.postfix">

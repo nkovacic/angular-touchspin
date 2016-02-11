@@ -117,6 +117,8 @@ export class TouchSpinController {
 			if (angular.isNumber(value) && !this.ngModelController.$isEmpty(value)) {
 				this.val = value.toFixed(this.touchSpinOptions.decimals);
 			}
+
+			return value;
 		});
 	}
 	private prepareOptions() {	

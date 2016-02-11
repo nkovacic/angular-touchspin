@@ -1,8 +1,10 @@
 export class MainController {
 	public touchSpinOptions: angularTouchSpin.ITouchSpinOptions;
 	public currency: number;
+	public currency1: number;
 
 	constructor() {
+		this.currency1 = 10;
 		this.touchSpinOptions = {
 			decimals: 2,
 			max: 100,

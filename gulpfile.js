@@ -6,13 +6,14 @@
 
 'use strict';
 
-var gulp = require('gulp');
-var wrench = require('wrench');
+var gulp = require('gulp'),
+	wrench = require('wrench');
 
 /**
  *  This will load all js or coffee files in the gulp directory
  *  in order to load all gulp tasks
  */
+ 
 wrench.readdirSyncRecursive('./other/gulp').filter(function(file) {
     return (/\.(js)$/i).test(file);
 }).map(function(file) {

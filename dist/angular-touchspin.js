@@ -1,5 +1,5 @@
 /*!
-* angular-touchspin JavaScript Library v1.0.4
+* angular-touchspin JavaScript Library v1.1
 *
 * @license MIT
 *
@@ -80,30 +80,18 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _utilitiesAngularEs6 = __webpack_require__(7);
-
-	var _componentsTouchspinTouchspinDirective = __webpack_require__(5);
-
-	var _providersTouchspinConfig = __webpack_require__(6);
-
-	exports['default'] = _utilitiesAngularEs6.AngularES6.module('lm.touchspin').directive('touchSpin', _componentsTouchspinTouchspinDirective.TouchSpinDirective).provider('touchSpinConfig', _providersTouchspinConfig.TouchSpinConfig).name;
-	module.exports = exports['default'];
+	"use strict";
+	var angular_es6_1 = __webpack_require__(7);
+	var touchspin_directive_1 = __webpack_require__(5);
+	var touchspin_config_1 = __webpack_require__(6);
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports['default'] = angular_es6_1.AngularES6.module('nk.touchspin').directive('touchSpin', touchspin_directive_1.TouchSpinDirective).provider('touchSpinConfig', touchspin_config_1.TouchSpinConfig).name;
 
 /***/ },
 /* 4 */
 /***/ function(module, exports) {
 
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
+	"use strict";
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -286,17 +274,12 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
+	"use strict";
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	__webpack_require__(1);
-
-	var _touchspinController = __webpack_require__(4);
+	var touchspin_controller_1 = __webpack_require__(4);
 
 	var TouchSpinDirective = function TouchSpinDirective() {
 	    _classCallCheck(this, TouchSpinDirective);
@@ -308,7 +291,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        onChange: '&',
 	        options: '=?'
 	    };
-	    this.controller = _touchspinController.TouchSpinController;
+	    this.controller = touchspin_controller_1.TouchSpinController;
 	    this.controllerAs = 'vm';
 	    this.template = __webpack_require__(2);
 	};
@@ -319,11 +302,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 6 */
 /***/ function(module, exports) {
 
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
+	"use strict";
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -373,16 +352,12 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 7 */
 /***/ function(module, exports) {
 
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
+	"use strict";
 	var _bind = Function.prototype.bind;
 
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var AngularES6 = (function () {
 	    function AngularES6(moduleName, dependancies) {
@@ -394,25 +369,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    _createClass(AngularES6, [{
-	        key: 'constant',
+	        key: "constant",
 	        value: function constant(name, value) {
 	            this.angularModule.constant(name, value);
 	            return this;
 	        }
 	    }, {
-	        key: 'config',
+	        key: "config",
 	        value: function config(configFn) {
 	            this.angularModule.config(configFn);
 	            return this;
 	        }
 	    }, {
-	        key: 'controller',
+	        key: "controller",
 	        value: function controller(name, constructorFn) {
 	            this.angularModule.controller(name, constructorFn);
 	            return this;
 	        }
 	    }, {
-	        key: 'directive',
+	        key: "directive",
 	        value: function directive(name, constructorFn) {
 	            var normalizedConstructorFn = this.normalizeConstructor(constructorFn);
 	            if (!normalizedConstructorFn.prototype.compile) {
@@ -432,7 +407,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return this;
 	        }
 	    }, {
-	        key: 'factory',
+	        key: "factory",
 	        value: function factory(name, constructorFn) {
 	            constructorFn = this.normalizeConstructor(constructorFn);
 	            var factoryArray = this.createFactoryArray(constructorFn);
@@ -440,32 +415,32 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return this;
 	        }
 	    }, {
-	        key: 'filter',
+	        key: "filter",
 	        value: function filter(name, constructorFn) {
 	            var filterArray = this.createFilterArray(constructorFn);
 	            this.angularModule.filter(name, filterArray);
 	            return this;
 	        }
 	    }, {
-	        key: 'service',
+	        key: "service",
 	        value: function service(name, constructorFn) {
 	            this.angularModule.service(name, constructorFn);
 	            return this;
 	        }
 	    }, {
-	        key: 'provider',
+	        key: "provider",
 	        value: function provider(name, constructorFn) {
 	            this.angularModule.provider(name, constructorFn);
 	            return this;
 	        }
 	    }, {
-	        key: 'run',
+	        key: "run",
 	        value: function run(initializationFunction) {
 	            this.angularModule.run(initializationFunction);
 	            return this;
 	        }
 	    }, {
-	        key: 'normalizeConstructor',
+	        key: "normalizeConstructor",
 	        value: function normalizeConstructor(inputConstructorFn) {
 	            var constructorFn = undefined;
 	            if (angular.isArray(inputConstructorFn.constructor)) {
@@ -478,7 +453,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return constructorFn;
 	        }
 	    }, {
-	        key: 'createFactoryArray',
+	        key: "createFactoryArray",
 	        value: function createFactoryArray(constructorFn) {
 	            var args = constructorFn.$inject || [],
 	                factoryArray = args.slice();
@@ -493,7 +468,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return factoryArray;
 	        }
 	    }, {
-	        key: 'createFilterArray',
+	        key: "createFilterArray",
 	        value: function createFilterArray(constructorFn) {
 	            var args = constructorFn.$inject || [],
 	                filterArray = args.slice();
@@ -508,19 +483,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return filterArray;
 	        }
 	    }, {
-	        key: 'cloneFunction',
+	        key: "cloneFunction",
 	        value: function cloneFunction(original) {
 	            return function () {
 	                return original.apply(this, arguments);
 	            };
 	        }
 	    }, {
-	        key: 'override',
+	        key: "override",
 	        value: function override(object, methodName, callback) {
 	            object[methodName] = callback(object[methodName]);
 	        }
 	    }], [{
-	        key: 'module',
+	        key: "module",
 	        value: function module(moduleName, dependancies) {
 	            dependancies = dependancies || [];
 	            return new AngularES6(moduleName, dependancies);

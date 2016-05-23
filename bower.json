@@ -4,7 +4,7 @@
     "authors": [
         "Niko Kovacic <niko.kovacic2@gmail.com>"
     ],
-    "main": "dist/angular-touchspin.js",
+    "main": "dist/angular-touchspin.min.js",
     "description": "A input spinner component for Bootstrap 3 and angular",
     "keywords": [
         "angular",

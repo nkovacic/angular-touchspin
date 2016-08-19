@@ -1,5 +1,5 @@
 /*!
-* angular-touchspin JavaScript Library v1.1
+* angular-touchspin JavaScript Library v1.2.0
 *
 * @license MIT
 *
@@ -84,26 +84,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	var angular_es6_1 = __webpack_require__(7);
 	var touchspin_directive_1 = __webpack_require__(5);
 	var touchspin_config_1 = __webpack_require__(6);
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports['default'] = angular_es6_1.AngularES6.module('nk.touchspin').directive('touchSpin', touchspin_directive_1.TouchSpinDirective).provider('touchSpinConfig', touchspin_config_1.TouchSpinConfig).name;
+	module.exports = angular_es6_1.AngularES6.module('nk.touchspin').directive('touchSpin', touchspin_directive_1.TouchSpinDirective).provider('touchSpinConfig', touchspin_config_1.TouchSpinConfig).name;
 
 /***/ },
 /* 4 */
 /***/ function(module, exports) {
 
 	"use strict";
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
 	var TouchSpinController = (function () {
 	    TouchSpinController.$inject = ["$element", "$attrs", "$interval", "$timeout", "touchSpinConfig"];
 	    function TouchSpinController($element, $attrs, $interval, $timeout, touchSpinConfig) {
 	        'ngInject';
-
-	        _classCallCheck(this, TouchSpinController);
-
 	        this.$element = $element;
 	        this.$attrs = $attrs;
 	        this.$interval = $interval;
@@ -114,160 +105,128 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.prepareOptions();
 	        this.initializeEvents();
 	    }
-
-	    _createClass(TouchSpinController, [{
-	        key: 'startSpinUp',
-	        value: function startSpinUp() {
-	            var _this = this;
-
-	            this.checkValue();
-	            this.increment();
-	            this.clickStart = Date.now();
-	            this.stopSpin();
+	    TouchSpinController.prototype.startSpinUp = function () {
+	        var _this = this;
+	        this.checkValue();
+	        this.increment();
+	        this.clickStart = Date.now();
+	        this.stopSpin();
+	        this.$timeout(function () {
+	            _this.timer = _this.$interval(function () {
+	                _this.increment();
+	            }, _this.touchSpinOptions.stepInterval);
+	        }, this.touchSpinOptions.stepIntervalDelay);
+	    };
+	    TouchSpinController.prototype.startSpinDown = function () {
+	        var _this = this;
+	        this.checkValue();
+	        this.decrement();
+	        this.clickStart = Date.now();
+	        this.timeout = this.$timeout(function () {
+	            _this.timer = _this.$interval(function () {
+	                _this.decrement();
+	            }, _this.touchSpinOptions.stepInterval);
+	        }, this.touchSpinOptions.stepIntervalDelay);
+	    };
+	    TouchSpinController.prototype.stopSpin = function () {
+	        var _this = this;
+	        if (Date.now() - this.clickStart > this.touchSpinOptions.stepIntervalDelay) {
+	            this.$timeout.cancel(this.timeout);
+	            this.$interval.cancel(this.timer);
+	        } else {
 	            this.$timeout(function () {
-	                _this.timer = _this.$interval(function () {
-	                    _this.increment();
-	                }, _this.touchSpinOptions.stepInterval);
+	                _this.$timeout.cancel(_this.timeout);
+	                _this.$interval.cancel(_this.timer);
 	            }, this.touchSpinOptions.stepIntervalDelay);
 	        }
-	    }, {
-	        key: 'startSpinDown',
-	        value: function startSpinDown() {
-	            var _this2 = this;
-
-	            this.checkValue();
-	            this.decrement();
-	            this.clickStart = Date.now();
-	            this.timeout = this.$timeout(function () {
-	                _this2.timer = _this2.$interval(function () {
-	                    _this2.decrement();
-	                }, _this2.touchSpinOptions.stepInterval);
-	            }, this.touchSpinOptions.stepIntervalDelay);
-	        }
-	    }, {
-	        key: 'stopSpin',
-	        value: function stopSpin() {
-	            var _this3 = this;
-
-	            if (Date.now() - this.clickStart > this.touchSpinOptions.stepIntervalDelay) {
-	                this.$timeout.cancel(this.timeout);
-	                this.$interval.cancel(this.timer);
+	    };
+	    TouchSpinController.prototype.checkValue = function () {
+	        if (this.ngModelController.$isEmpty(this.val)) {
+	            this.changeValue(this.touchSpinOptions.min);
+	        } else if (!this.val.match(/^-?(?:\d+|\d*\.\d+)$/i)) {
+	            if (this.oldVal !== '') {
+	                this.changeValue(parseFloat(this.oldVal));
 	            } else {
-	                this.$timeout(function () {
-	                    _this3.$timeout.cancel(_this3.timeout);
-	                    _this3.$interval.cancel(_this3.timer);
-	                }, this.touchSpinOptions.stepIntervalDelay);
-	            }
-	        }
-	    }, {
-	        key: 'checkValue',
-	        value: function checkValue() {
-	            if (this.ngModelController.$isEmpty(this.val)) {
 	                this.changeValue(this.touchSpinOptions.min);
-	            } else if (!this.val.match(/^-?(?:\d+|\d*\.\d+)$/i)) {
-	                if (this.oldVal !== '') {
-	                    this.changeValue(parseFloat(this.oldVal));
-	                } else {
-	                    this.changeValue(this.touchSpinOptions.min);
-	                }
-	            } else {
-	                var value = parseFloat(this.val);
-	                if (value > this.touchSpinOptions.max) {
-	                    this.changeValue(this.touchSpinOptions.max);
-	                } else if (value < this.touchSpinOptions.min) {
-	                    this.changeValue(this.touchSpinOptions.min);
-	                } else {
-	                    this.changeValue(value);
-	                }
 	            }
-	            this.focused = false;
-	        }
-	    }, {
-	        key: 'focus',
-	        value: function focus() {
-	            this.focused = true;
-	        }
-	    }, {
-	        key: 'initializeEvents',
-	        value: function initializeEvents() {
-	            var _this4 = this;
-
-	            this.inputElement.on('mousewheel DOMMouseScroll', function (ev) {
-	                if (!_this4.touchSpinOptions.mousewheel) {
-	                    return;
-	                }
-	                var delta = !angular.isUndefined(ev.originalEvent) ? ev.originalEvent.wheelDelta || -ev.originalEvent.wheelDeltaY || -ev.originalEvent.detail : ev.wheelDelta || -ev.wheelDeltaY || -ev.detail;
-	                ev.stopPropagation();
-	                ev.preventDefault();
-	                if (delta < 0) {
-	                    _this4.decrement();
-	                } else {
-	                    _this4.increment();
-	                }
-	            });
-	        }
-	    }, {
-	        key: 'prepareNgModel',
-	        value: function prepareNgModel() {
-	            var _this5 = this;
-
-	            this.ngModelController = this.$element.controller('ngModel');
-	            this.ngModelController.$formatters.push(function (value) {
-	                if (angular.isNumber(value) && !_this5.ngModelController.$isEmpty(value)) {
-	                    _this5.val = value.toFixed(_this5.touchSpinOptions.decimals);
-	                }
-	                return value;
-	            });
-	        }
-	    }, {
-	        key: 'prepareOptions',
-	        value: function prepareOptions() {
-	            this.touchSpinOptions = angular.extend({}, this.touchSpinConfig, this.options);
-	            var value = this.ngModelController.$modelValue || this.touchSpinOptions.initVal || this.touchSpinOptions.min;
-	            this.changeValue(value, true);
-	        }
-	    }, {
-	        key: 'changeValue',
-	        value: function changeValue(value, supressChangeEvent) {
-	            var _this6 = this;
-
-	            var decimalValue = Math.pow(10, this.touchSpinOptions.decimals);
-	            value = Math.round(value * decimalValue) / decimalValue;
-	            this.val = value.toFixed(this.touchSpinOptions.decimals);
-	            this.ngModelController.$setViewValue(value);
-	            if (!supressChangeEvent && this.$attrs.onChange) {
-	                this.$timeout(function () {
-	                    _this6.onChange({ value: value });
-	                });
-	            }
-	        }
-	    }, {
-	        key: 'decrement',
-	        value: function decrement() {
-	            this.oldVal = this.val;
-	            var value = parseFloat(this.val) - this.touchSpinOptions.step;
-	            if (value < this.touchSpinOptions.min) {
-	                this.changeValue(this.touchSpinOptions.min);
-	                return;
-	            }
-	            this.changeValue(value);
-	        }
-	    }, {
-	        key: 'increment',
-	        value: function increment() {
-	            this.oldVal = this.val;
-	            var value = parseFloat(this.val) + this.touchSpinOptions.step;
+	        } else {
+	            var value = parseFloat(this.val);
 	            if (value > this.touchSpinOptions.max) {
 	                this.changeValue(this.touchSpinOptions.max);
+	            } else if (value < this.touchSpinOptions.min) {
+	                this.changeValue(this.touchSpinOptions.min);
+	            } else {
+	                this.changeValue(value);
+	            }
+	        }
+	        this.focused = false;
+	    };
+	    TouchSpinController.prototype.focus = function () {
+	        this.focused = true;
+	    };
+	    TouchSpinController.prototype.initializeEvents = function () {
+	        var _this = this;
+	        this.inputElement.on('mousewheel DOMMouseScroll', function (ev) {
+	            if (!_this.touchSpinOptions.mousewheel) {
 	                return;
 	            }
-	            this.changeValue(value);
+	            var delta = !angular.isUndefined(ev.originalEvent) ? ev.originalEvent.wheelDelta || -ev.originalEvent.wheelDeltaY || -ev.originalEvent.detail : ev.wheelDelta || -ev.wheelDeltaY || -ev.detail;
+	            ev.stopPropagation();
+	            ev.preventDefault();
+	            if (delta < 0) {
+	                _this.decrement();
+	            } else {
+	                _this.increment();
+	            }
+	        });
+	    };
+	    TouchSpinController.prototype.prepareNgModel = function () {
+	        var _this = this;
+	        this.ngModelController = this.$element.controller('ngModel');
+	        this.ngModelController.$formatters.push(function (value) {
+	            if (angular.isNumber(value) && !_this.ngModelController.$isEmpty(value)) {
+	                _this.val = value.toFixed(_this.touchSpinOptions.decimals);
+	            }
+	            return value;
+	        });
+	    };
+	    TouchSpinController.prototype.prepareOptions = function () {
+	        this.touchSpinOptions = angular.extend({}, this.touchSpinConfig, this.options);
+	        var value = this.ngModelController.$modelValue || this.touchSpinOptions.initVal || this.touchSpinOptions.min;
+	        this.changeValue(value, true);
+	    };
+	    TouchSpinController.prototype.changeValue = function (value, supressChangeEvent) {
+	        var _this = this;
+	        var decimalValue = Math.pow(10, this.touchSpinOptions.decimals);
+	        value = Math.round(value * decimalValue) / decimalValue;
+	        this.val = value.toFixed(this.touchSpinOptions.decimals);
+	        this.ngModelController.$setViewValue(value);
+	        if (!supressChangeEvent && this.$attrs.onChange) {
+	            this.$timeout(function () {
+	                _this.onChange({ value: value });
+	            });
 	        }
-	    }]);
-
+	    };
+	    TouchSpinController.prototype.decrement = function () {
+	        this.oldVal = this.val;
+	        var value = parseFloat(this.val) - this.touchSpinOptions.step;
+	        if (value < this.touchSpinOptions.min) {
+	            this.changeValue(this.touchSpinOptions.min);
+	            return;
+	        }
+	        this.changeValue(value);
+	    };
+	    TouchSpinController.prototype.increment = function () {
+	        this.oldVal = this.val;
+	        var value = parseFloat(this.val) + this.touchSpinOptions.step;
+	        if (value > this.touchSpinOptions.max) {
+	            this.changeValue(this.touchSpinOptions.max);
+	            return;
+	        }
+	        this.changeValue(value);
+	    };
 	    return TouchSpinController;
 	})();
-
 	exports.TouchSpinController = TouchSpinController;
 
 /***/ },
@@ -275,27 +234,23 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
 	__webpack_require__(1);
 	var touchspin_controller_1 = __webpack_require__(4);
-
-	var TouchSpinDirective = function TouchSpinDirective() {
-	    _classCallCheck(this, TouchSpinDirective);
-
-	    this.restrict = 'EA';
-	    this.require = '^ngModel';
-	    this.scope = {};
-	    this.bindToController = {
-	        onChange: '&',
-	        options: '=?'
-	    };
-	    this.controller = touchspin_controller_1.TouchSpinController;
-	    this.controllerAs = 'vm';
-	    this.template = __webpack_require__(2);
-	};
-
+	var TouchSpinDirective = (function () {
+	    function TouchSpinDirective() {
+	        this.restrict = 'EA';
+	        this.require = '^ngModel';
+	        this.scope = {};
+	        this.bindToController = {
+	            onChange: '&',
+	            options: '=?'
+	        };
+	        this.controller = touchspin_controller_1.TouchSpinController;
+	        this.controllerAs = 'vm';
+	        this.template = __webpack_require__(2);
+	    }
+	    return TouchSpinDirective;
+	})();
 	exports.TouchSpinDirective = TouchSpinDirective;
 
 /***/ },
@@ -303,15 +258,8 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	"use strict";
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
 	var TouchSpinConfig = (function () {
 	    function TouchSpinConfig() {
-	        _classCallCheck(this, TouchSpinConfig);
-
 	        this.defaultTouchSpinOptions = {
 	            buttonDownClass: 'btn btn-default',
 	            buttonUpClass: 'btn btn-default',
@@ -330,22 +278,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	            verticalUpClass: 'glyphicon glyphicon-chevron-up'
 	        };
 	    }
-
-	    _createClass(TouchSpinConfig, [{
-	        key: 'defaults',
-	        value: function defaults(options) {
-	            this.defaultTouchSpinOptions = angular.extend({}, this.defaultTouchSpinOptions, options);
-	        }
-	    }, {
-	        key: '$get',
-	        value: function $get() {
-	            return this.defaultTouchSpinOptions;
-	        }
-	    }]);
-
+	    TouchSpinConfig.prototype.defaults = function (options) {
+	        this.defaultTouchSpinOptions = angular.extend({}, this.defaultTouchSpinOptions, options);
+	    };
+	    TouchSpinConfig.prototype.$get = function () {
+	        return this.defaultTouchSpinOptions;
+	    };
 	    return TouchSpinConfig;
 	})();
-
 	exports.TouchSpinConfig = TouchSpinConfig;
 
 /***/ },
@@ -353,158 +293,156 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	"use strict";
-	var _bind = Function.prototype.bind;
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 	var AngularES6 = (function () {
 	    function AngularES6(moduleName, dependancies) {
-	        _classCallCheck(this, AngularES6);
-
 	        dependancies = dependancies || [];
 	        this.name = moduleName;
 	        this.angularModule = angular.module(moduleName, dependancies);
 	    }
-
-	    _createClass(AngularES6, [{
-	        key: "constant",
-	        value: function constant(name, value) {
-	            this.angularModule.constant(name, value);
-	            return this;
+	    AngularES6.module = function (moduleName, dependancies) {
+	        dependancies = dependancies || [];
+	        return new AngularES6(moduleName, dependancies);
+	    };
+	    AngularES6.prototype.constant = function (name, value) {
+	        this.angularModule.constant(name, value);
+	        return this;
+	    };
+	    AngularES6.prototype.config = function (configFn) {
+	        this.angularModule.config(configFn);
+	        return this;
+	    };
+	    AngularES6.prototype.controller = function (name, constructorFn) {
+	        this.angularModule.controller(name, constructorFn);
+	        return this;
+	    };
+	    AngularES6.prototype.directive = function (name, constructorFn) {
+	        var normalizedConstructorFn = this.normalizeConstructor(constructorFn);
+	        if (!normalizedConstructorFn.prototype.compile) {
+	            // create an empty compile function if none was defined.
+	            normalizedConstructorFn.prototype.compile = function () {};
 	        }
-	    }, {
-	        key: "config",
-	        value: function config(configFn) {
-	            this.angularModule.config(configFn);
-	            return this;
-	        }
-	    }, {
-	        key: "controller",
-	        value: function controller(name, constructorFn) {
-	            this.angularModule.controller(name, constructorFn);
-	            return this;
-	        }
-	    }, {
-	        key: "directive",
-	        value: function directive(name, constructorFn) {
-	            var normalizedConstructorFn = this.normalizeConstructor(constructorFn);
-	            if (!normalizedConstructorFn.prototype.compile) {
-	                normalizedConstructorFn.prototype.compile = function () {};
-	            }
-	            var originalCompileFn = this.cloneFunction(normalizedConstructorFn.prototype.compile);
-	            this.override(normalizedConstructorFn.prototype, 'compile', function () {
-	                return function () {
-	                    originalCompileFn.apply(this, arguments);
-	                    if (normalizedConstructorFn.prototype.link) {
-	                        return normalizedConstructorFn.prototype.link.bind(this);
-	                    }
-	                };
-	            });
-	            var factoryArray = this.createFactoryArray(constructorFn);
-	            this.angularModule.directive(name, factoryArray);
-	            return this;
-	        }
-	    }, {
-	        key: "factory",
-	        value: function factory(name, constructorFn) {
-	            constructorFn = this.normalizeConstructor(constructorFn);
-	            var factoryArray = this.createFactoryArray(constructorFn);
-	            this.angularModule.factory(name, factoryArray);
-	            return this;
-	        }
-	    }, {
-	        key: "filter",
-	        value: function filter(name, constructorFn) {
-	            var filterArray = this.createFilterArray(constructorFn);
-	            this.angularModule.filter(name, filterArray);
-	            return this;
-	        }
-	    }, {
-	        key: "service",
-	        value: function service(name, constructorFn) {
-	            this.angularModule.service(name, constructorFn);
-	            return this;
-	        }
-	    }, {
-	        key: "provider",
-	        value: function provider(name, constructorFn) {
-	            this.angularModule.provider(name, constructorFn);
-	            return this;
-	        }
-	    }, {
-	        key: "run",
-	        value: function run(initializationFunction) {
-	            this.angularModule.run(initializationFunction);
-	            return this;
-	        }
-	    }, {
-	        key: "normalizeConstructor",
-	        value: function normalizeConstructor(inputConstructorFn) {
-	            var constructorFn = undefined;
-	            if (angular.isArray(inputConstructorFn.constructor)) {
-	                var injected = inputConstructorFn.slice(0, inputConstructorFn.length - 1);
-	                constructorFn = inputConstructorFn[inputConstructorFn.length - 1];
-	                constructorFn.$inject = injected;
-	            } else {
-	                constructorFn = inputConstructorFn;
-	            }
-	            return constructorFn;
-	        }
-	    }, {
-	        key: "createFactoryArray",
-	        value: function createFactoryArray(constructorFn) {
-	            var args = constructorFn.$inject || [],
-	                factoryArray = args.slice();
-	            factoryArray.push(function () {
-	                for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	                    args[_key] = arguments[_key];
-	                }
-
-	                var instance = new (_bind.apply(constructorFn, [null].concat(args)))();
-	                return instance;
-	            });
-	            return factoryArray;
-	        }
-	    }, {
-	        key: "createFilterArray",
-	        value: function createFilterArray(constructorFn) {
-	            var args = constructorFn.$inject || [],
-	                filterArray = args.slice();
-	            filterArray.push(function () {
-	                for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-	                    args[_key2] = arguments[_key2];
-	                }
-
-	                var instance = new (_bind.apply(constructorFn, [null].concat(args)))();
-	                return instance.filter;
-	            });
-	            return filterArray;
-	        }
-	    }, {
-	        key: "cloneFunction",
-	        value: function cloneFunction(original) {
+	        var originalCompileFn = this.cloneFunction(normalizedConstructorFn.prototype.compile);
+	        // Decorate the compile method to automatically return the link method (if it exists)
+	        // and bind it to the context of the constructor (so `this` works correctly).
+	        // This gets around the problem of a non-lexical "this" which occurs when the directive class itself
+	        // returns `this.link` from within the compile function.
+	        this.override(normalizedConstructorFn.prototype, 'compile', function () {
 	            return function () {
-	                return original.apply(this, arguments);
+	                originalCompileFn.apply(this, arguments);
+	                if (normalizedConstructorFn.prototype.link) {
+	                    return normalizedConstructorFn.prototype.link.bind(this);
+	                }
 	            };
+	        });
+	        var factoryArray = this.createFactoryArray(constructorFn);
+	        this.angularModule.directive(name, factoryArray);
+	        return this;
+	    };
+	    AngularES6.prototype.factory = function (name, constructorFn) {
+	        constructorFn = this.normalizeConstructor(constructorFn);
+	        var factoryArray = this.createFactoryArray(constructorFn);
+	        this.angularModule.factory(name, factoryArray);
+	        return this;
+	    };
+	    AngularES6.prototype.filter = function (name, constructorFn) {
+	        //filterConstructorFn = this.normalizeConstructor(filterConstructorFn);
+	        var filterArray = this.createFilterArray(constructorFn);
+	        this.angularModule.filter(name, filterArray);
+	        return this;
+	    };
+	    AngularES6.prototype.service = function (name, constructorFn) {
+	        this.angularModule.service(name, constructorFn);
+	        return this;
+	    };
+	    AngularES6.prototype.provider = function (name, constructorFn) {
+	        this.angularModule.provider(name, constructorFn);
+	        return this;
+	    };
+	    AngularES6.prototype.run = function (initializationFunction) {
+	        this.angularModule.run(initializationFunction);
+	        return this;
+	    };
+	    AngularES6.prototype.normalizeConstructor = function (inputConstructorFn) {
+	        var constructorFn;
+	        if (angular.isArray(inputConstructorFn.constructor)) {
+	            var injected = inputConstructorFn.slice(0, inputConstructorFn.length - 1);
+	            constructorFn = inputConstructorFn[inputConstructorFn.length - 1];
+	            constructorFn.$inject = injected;
+	        } else {
+	            constructorFn = inputConstructorFn;
 	        }
-	    }, {
-	        key: "override",
-	        value: function override(object, methodName, callback) {
-	            object[methodName] = callback(object[methodName]);
-	        }
-	    }], [{
-	        key: "module",
-	        value: function module(moduleName, dependancies) {
-	            dependancies = dependancies || [];
-	            return new AngularES6(moduleName, dependancies);
-	        }
-	    }]);
-
+	        return constructorFn;
+	    };
+	    /**
+	     * Convert a constructor function into a factory function which returns a new instance of that
+	     * constructor, with the correct dependencies automatically injected as arguments.
+	     *
+	     * In order to inject the dependencies, they must be attached to the constructor function with the
+	     * `$inject` property annotation.
+	     *
+	     * @param constructorFn
+	     * @returns {Array.<T>}
+	     * @private
+	     */
+	    AngularES6.prototype.createFactoryArray = function (constructorFn) {
+	        // get the array of dependencies that are needed by this component (as contained in the `$inject` array)
+	        var args = constructorFn.$inject || [],
+	            factoryArray = args.slice(); // create a copy of the array
+	        // The factoryArray uses Angular's array notation whereby each element of the array is the name of a
+	        // dependency, and the final item is the factory function itself.
+	        factoryArray.push(function () {
+	            var args = [];
+	            for (var _i = 0; _i < arguments.length; _i++) {
+	                args[_i - 0] = arguments[_i];
+	            }
+	            //return new constructorFn(...args);
+	            var instance = new (constructorFn.bind.apply(constructorFn, [void 0].concat(args)))();
+	            /*
+	            for (var key in instance) {
+	                instance[key] = instance[key];
+	            }*/
+	            return instance;
+	        });
+	        return factoryArray;
+	    };
+	    AngularES6.prototype.createFilterArray = function (constructorFn) {
+	        // get the array of dependencies that are needed by this component (as contained in the `$inject` array)
+	        var args = constructorFn.$inject || [],
+	            filterArray = args.slice(); // create a copy of the array
+	        // The factoryArray uses Angular's array notation whereby each element of the array is the name of a
+	        // dependency, and the final item is the factory function itself.
+	        filterArray.push(function () {
+	            var args = [];
+	            for (var _i = 0; _i < arguments.length; _i++) {
+	                args[_i - 0] = arguments[_i];
+	            }
+	            //return new constructorFn(...args);
+	            var instance = new (constructorFn.bind.apply(constructorFn, [void 0].concat(args)))();
+	            return instance.filter;
+	        });
+	        return filterArray;
+	    };
+	    /**
+	     * Clone a function
+	     * @param original
+	     * @returns {Function}
+	     */
+	    AngularES6.prototype.cloneFunction = function (original) {
+	        return function () {
+	            return original.apply(this, arguments);
+	        };
+	    };
+	    /**
+	     * Override an object's method with a new one specified by `callback`.
+	     * @param object
+	     * @param methodName
+	     * @param callback
+	     */
+	    AngularES6.prototype.override = function (object, methodName, callback) {
+	        object[methodName] = callback(object[methodName]);
+	    };
 	    return AngularES6;
 	})();
-
 	exports.AngularES6 = AngularES6;
 
 /***/ }

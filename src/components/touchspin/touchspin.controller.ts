@@ -16,13 +16,25 @@ export class TouchSpinController {
 		'ngInject';
 
 		this.inputElement = this.$element.find('input');
-		
+
 		this.prepareNgModel();
 		this.prepareOptions();
 		this.initializeEvents();
 	}
 
 	startSpinUp () {
+		this.checkValue();
+		this.decrement();
+
+		this.clickStart = Date.now();
+
+		this.timeout = this.$timeout(() => {
+			this.timer = this.$interval(() => {
+				this.decrement();
+			}, this.touchSpinOptions.stepInterval);
+		}, this.touchSpinOptions.stepIntervalDelay);
+	}
+	startSpinDown() {
 		this.checkValue();
 		this.increment();
 
@@ -32,18 +44,6 @@ export class TouchSpinController {
 		this.$timeout(() => {
 			this.timer = this.$interval(() => {
 				this.increment();
-			}, this.touchSpinOptions.stepInterval);
-		}, this.touchSpinOptions.stepIntervalDelay);
-	}
-	startSpinDown() {
-		this.checkValue();
-		this.decrement();
-
-		this.clickStart = Date.now();
-
-		this.timeout = this.$timeout(() => {
-			this.timer = this.$interval(() => {
-				this.decrement();
 			}, this.touchSpinOptions.stepInterval);
 		}, this.touchSpinOptions.stepIntervalDelay);
 	}
@@ -96,7 +96,7 @@ export class TouchSpinController {
 				return;
 			}
 
-			let delta = !angular.isUndefined(ev.originalEvent) ? (<MouseWheelEvent>ev.originalEvent).wheelDelta || -(<MouseWheelEvent>ev.originalEvent).wheelDeltaY 
+			let delta = !angular.isUndefined(ev.originalEvent) ? (<MouseWheelEvent>ev.originalEvent).wheelDelta || -(<MouseWheelEvent>ev.originalEvent).wheelDeltaY
 				|| -(<MouseWheelEvent>ev.originalEvent).detail : (<any>ev).wheelDelta || -(<any>ev).wheelDeltaY || -(<any>ev).detail
 
 			ev.stopPropagation();
@@ -121,9 +121,9 @@ export class TouchSpinController {
 			return value;
 		});
 	}
-	private prepareOptions() {	
+	private prepareOptions() {
 		this.touchSpinOptions = angular.extend({}, this.touchSpinConfig, this.options);
-		
+
 		let value: number = this.ngModelController.$modelValue || this.touchSpinOptions.initVal || this.touchSpinOptions.min;
 
 		this.changeValue(value, true);
@@ -168,4 +168,24 @@ export class TouchSpinController {
 
 		this.changeValue(value);
 	}
+	private keyUp(event) {
+    	var code = event.keyCode || event.which;
+        if (code === 38) {
+            this.stopSpin();
+        }
+        else if (code === 40) {
+            this.stopSpin();
+        }
+    }
+	private keyDown(event) {
+    	var code = event.keyCode || event.which;
+        if (code === 38) {
+        	this.increment();
+        	event.preventDefault();
+        }
+        else if (code === 40) {
+            this.decrement();
+            event.preventDefault();
+        }
+    }
 }

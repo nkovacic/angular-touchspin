@@ -7,11 +7,11 @@
         "sourceMap": true
     },
     "compileOnSave": false,
-    "exclude": [
-        "node_modules",
+    "files": [
+        "dev/main.module.ts",
         "src/angular-touchspin.d.ts",
-        "typings/main.d.ts",
-        "typings/main"      
+        "src/angular-touchspin.module.ts",
+        "typings/index.d.ts"   
     ],
     "version": "1.8.10"
 }

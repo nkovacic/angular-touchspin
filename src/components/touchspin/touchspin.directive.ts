@@ -6,6 +6,7 @@ export class TouchSpinDirective implements angular.IDirective {
     public require = '^ngModel';
     public scope = {};
     public bindToController = {
+        disabled: '=?',
     	onChange: '&',
         options: '=?'
     };

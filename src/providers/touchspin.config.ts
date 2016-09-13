@@ -1,5 +1,5 @@
-export class TouchSpinConfig implements angularTouchSpin.ITouchSpinConfigProvider, angular.IServiceProvider {
-	private defaultTouchSpinOptions: angularTouchSpin.ITouchSpinOptions;
+export class TouchSpinConfig implements angular.touchspin.ITouchSpinConfigProvider, angular.IServiceProvider {
+	private defaultTouchSpinOptions: angular.touchspin.ITouchSpinOptions;
 
 	constructor() {
 		this.defaultTouchSpinOptions = {
@@ -21,10 +21,10 @@ export class TouchSpinConfig implements angularTouchSpin.ITouchSpinConfigProvide
 		}
 	}
 
-	defaults(options: angularTouchSpin.ITouchSpinOptions) {
+	defaults(options: angular.touchspin.ITouchSpinOptions) {
 		this.defaultTouchSpinOptions = angular.extend({}, this.defaultTouchSpinOptions, options);
 	}
-	$get(): angularTouchSpin.ITouchSpinConfig {
+	$get(): angular.touchspin.ITouchSpinConfig {
 		return this.defaultTouchSpinOptions;
 	}
 }

@@ -1,5 +1,6 @@
 export class TouchSpinController {
-	public options: angularTouchSpin.ITouchSpinOptions;
+	public disabled: boolean;
+	public options: angular.touchspin.ITouchSpinOptions;
 	public val: string;
 
 	private clickStart: number;
@@ -9,10 +10,10 @@ export class TouchSpinController {
 	private oldVal: string;
 	private timeout: angular.IPromise<any>;
 	private timer: angular.IPromise<any>;
-	private touchSpinOptions: angularTouchSpin.ITouchSpinOptions;
+	private touchSpinOptions: angular.touchspin.ITouchSpinOptions;
 
 	constructor(private $element: angular.IAugmentedJQuery, private $attrs: angular.IAttributes,
-		private $interval: angular.IIntervalService, private $timeout: angular.ITimeoutService, private touchSpinConfig: angularTouchSpin.ITouchSpinConfig) {
+		private $interval: angular.IIntervalService, private $timeout: angular.ITimeoutService, private touchSpinConfig: angular.touchspin.ITouchSpinConfig) {
 		'ngInject';
 
 		this.inputElement = this.$element.find('input');

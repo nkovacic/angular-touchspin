@@ -1,7 +1,5 @@
-//var angular.touchspin = require<string>('../dist/angular-touchspin.js')
 import './styles/vendor';
 import 'font-awesome-webpack';
-//import '.../dist/angular-touchspin.css';
 let touchspinModule = require<string>('../src/angular-touchspin.module');
 import { MainController } from './controllers/main.controller';
 

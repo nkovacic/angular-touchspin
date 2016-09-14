@@ -8,7 +8,7 @@
     },
     "compileOnSave": false,
     "files": [
-        "dev/main.module.ts",
+        "dev/index.ts",
         "src/angular-touchspin.d.ts",
         "src/angular-touchspin.module.ts",
         "typings/index.d.ts"   

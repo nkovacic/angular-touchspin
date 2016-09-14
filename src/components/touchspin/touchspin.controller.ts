@@ -1,3 +1,8 @@
+const enum Char {
+	ArrowDown = 40,
+	ArrowUp = 38
+} 
+
 export class TouchSpinController {
 	public disabled: boolean;
 	public options: angular.touchspin.ITouchSpinOptions;
@@ -17,7 +22,7 @@ export class TouchSpinController {
 		'ngInject';
 
 		this.inputElement = this.$element.find('input');
-		
+
 		this.prepareNgModel();
 		this.prepareOptions();
 		this.initializeEvents();
@@ -28,9 +33,8 @@ export class TouchSpinController {
 		this.increment();
 
 		this.clickStart = Date.now();
-		this.stopSpin();
 
-		this.$timeout(() => {
+		this.timeout = this.$timeout(() => {
 			this.timer = this.$interval(() => {
 				this.increment();
 			}, this.touchSpinOptions.stepInterval);
@@ -41,8 +45,9 @@ export class TouchSpinController {
 		this.decrement();
 
 		this.clickStart = Date.now();
+		this.stopSpin();
 
-		this.timeout = this.$timeout(() => {
+		this.$timeout(() => {
 			this.timer = this.$interval(() => {
 				this.decrement();
 			}, this.touchSpinOptions.stepInterval);
@@ -97,7 +102,7 @@ export class TouchSpinController {
 				return;
 			}
 
-			let delta = !angular.isUndefined(ev.originalEvent) ? (<MouseWheelEvent>ev.originalEvent).wheelDelta || -(<MouseWheelEvent>ev.originalEvent).wheelDeltaY 
+			let delta = !angular.isUndefined(ev.originalEvent) ? (<MouseWheelEvent>ev.originalEvent).wheelDelta || -(<MouseWheelEvent>ev.originalEvent).wheelDeltaY
 				|| -(<MouseWheelEvent>ev.originalEvent).detail : (<any>ev).wheelDelta || -(<any>ev).wheelDeltaY || -(<any>ev).detail
 
 			ev.stopPropagation();
@@ -122,9 +127,9 @@ export class TouchSpinController {
 			return value;
 		});
 	}
-	private prepareOptions() {	
+	private prepareOptions() {
 		this.touchSpinOptions = angular.extend({}, this.touchSpinConfig, this.options);
-		
+
 		let value: number = this.ngModelController.$modelValue || this.touchSpinOptions.initVal || this.touchSpinOptions.min;
 
 		this.changeValue(value, true);
@@ -169,4 +174,25 @@ export class TouchSpinController {
 
 		this.changeValue(value);
 	}
+	private keyUp(event: MouseEvent) {
+    	let code = <number>(<any>event).keyCode || event.which;
+
+        if (code === Char.ArrowDown || code === Char.ArrowUp) {
+            this.stopSpin();
+        }
+    }
+	private keyDown(event: MouseEvent) {
+    	let  code = <number>(<any>event).keyCode || event.which;
+
+        if (code === Char.ArrowUp) {
+        	this.increment();
+
+        	event.preventDefault();
+        }
+        else if (code === Char.ArrowDown) {
+            this.decrement();
+
+            event.preventDefault();
+        }
+    }
 }

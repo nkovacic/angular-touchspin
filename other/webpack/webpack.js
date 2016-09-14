@@ -99,8 +99,8 @@ function getDistConfig(env) {
             path: conf.paths.dist
         },
         externals: {
-            angular: 'angular',
-            jquery: 'jQuery'
+            angular: 'angular'/*,
+            jquery: 'jQuery'*/
         },
         plugins: _.concat(getCommonPlugins(env), [
             new ExtractTextPlugin('angular-touchspin.min.css'),
@@ -118,13 +118,13 @@ function getTestConfig(env) {
 
 function getCommonPlugins(env) {
     return [
-        new webpack.BannerPlugin(getBanner(env), {raw: true}),
+        new webpack.BannerPlugin(getBanner(env), {raw: true})/*,
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery',
             'window.jQuery': 'jquery',
             'window.jquery': 'jquery'
-        })
+        })*/
     ];
 }
 

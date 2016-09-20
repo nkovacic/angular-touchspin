@@ -108,23 +108,39 @@ return /******/ (function(modules) { // webpackBootstrap
 	    TouchSpinController.prototype.startSpinUp = function () {
 	        var _this = this;
 	        this.checkValue();
-	        this.increment();
+	        if (this.touchSpinOptions.verticalButtons) {
+	            this.decrement();
+	        } else {
+	            this.increment();
+	        }
 	        this.clickStart = Date.now();
 	        this.timeout = this.$timeout(function () {
 	            _this.timer = _this.$interval(function () {
-	                _this.increment();
+	                if (_this.touchSpinOptions.verticalButtons) {
+	                    _this.decrement();
+	                } else {
+	                    _this.increment();
+	                }
 	            }, _this.touchSpinOptions.stepInterval);
 	        }, this.touchSpinOptions.stepIntervalDelay);
 	    };
 	    TouchSpinController.prototype.startSpinDown = function () {
 	        var _this = this;
 	        this.checkValue();
-	        this.decrement();
+	        if (this.touchSpinOptions.verticalButtons) {
+	            this.increment();
+	        } else {
+	            this.decrement();
+	        }
 	        this.clickStart = Date.now();
 	        this.stopSpin();
 	        this.$timeout(function () {
 	            _this.timer = _this.$interval(function () {
-	                _this.decrement();
+	                if (_this.touchSpinOptions.verticalButtons) {
+	                    _this.increment();
+	                } else {
+	                    _this.decrement();
+	                }
 	            }, _this.touchSpinOptions.stepInterval);
 	        }, this.touchSpinOptions.stepIntervalDelay);
 	    };

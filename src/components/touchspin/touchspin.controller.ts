@@ -30,26 +30,49 @@ export class TouchSpinController {
 
 	startSpinUp () {
 		this.checkValue();
-		this.increment();
+
+		if (this.touchSpinOptions.verticalButtons) {
+			this.decrement();
+		}
+		else {
+			this.increment();
+		}	
 
 		this.clickStart = Date.now();
 
 		this.timeout = this.$timeout(() => {
 			this.timer = this.$interval(() => {
-				this.increment();
+				if (this.touchSpinOptions.verticalButtons) {
+					this.decrement();
+				}
+				else {
+					this.increment();
+				}	
 			}, this.touchSpinOptions.stepInterval);
 		}, this.touchSpinOptions.stepIntervalDelay);
 	}
 	startSpinDown() {
 		this.checkValue();
-		this.decrement();
+
+		if (this.touchSpinOptions.verticalButtons) {
+			this.increment();
+		}
+		else {
+			this.decrement();
+		}
+		
 
 		this.clickStart = Date.now();
 		this.stopSpin();
 
 		this.$timeout(() => {
 			this.timer = this.$interval(() => {
-				this.decrement();
+				if (this.touchSpinOptions.verticalButtons) {
+					this.increment();
+				}
+				else {
+					this.decrement();
+				}
 			}, this.touchSpinOptions.stepInterval);
 		}, this.touchSpinOptions.stepIntervalDelay);
 	}

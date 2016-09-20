@@ -1,5 +1,6 @@
 export class MainController {
 	public touchSpinOptions: angular.touchspin.ITouchSpinOptions;
+	public touchSpinVerticalOptions: angular.touchspin.ITouchSpinOptions;
 	public currency: number;
 	public currency1: number;
 	public touchSpinDisabled: boolean;
@@ -14,6 +15,15 @@ export class MainController {
 			step: 0.1,
 			prefix: '$',
 			//postfix: '%'
+		};
+
+		this.touchSpinVerticalOptions = {
+			decimals: 2,
+			max: 100,
+			min: 1,
+			step: 0.1,
+			prefix: '$',
+			verticalButtons: true
 		};
 	}
 

@@ -66,7 +66,7 @@ Download the code from [https://github.com/nkovacic/angular-touchspin/releases/l
 4. Add a dependency to `angular-touchspin` in your app module, for example: ```angular.module('myModule', ['nk.touchspin'])```.
 5. Create an element to hold the control and add an `ng-model="numberVariable"` attribute where `numberVariable` is the scope variable that will hold the selected number value:
 ```html
-<div touch-spin ng-model="numberVariable"></div>
+<div touch-spin="{min: 0, max: 100}" ng-model="numberVariable"></div>
 ```
 OR
 ```html

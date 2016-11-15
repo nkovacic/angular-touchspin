@@ -144,7 +144,7 @@ export class TouchSpinController {
 
 		this.ngModelController.$formatters.push((value) => {
 			if (angular.isNumber(value) && !this.ngModelController.$isEmpty(value)) {
-				this.val = value.toFixed(this.touchSpinOptions.decimals);
+				this.changeValue(value, true, true);
 			}
 
 			return value;
@@ -153,17 +153,20 @@ export class TouchSpinController {
 	private prepareOptions() {
 		this.touchSpinOptions = angular.extend({}, this.touchSpinConfig, this.options);
 
-		let value: number = this.ngModelController.$modelValue || this.touchSpinOptions.initVal || this.touchSpinOptions.min;
+		let value: number = this.ngModelController.$modelValue || this.touchSpinOptions.min;
 
-		this.changeValue(value, true);
+		this.changeValue(value, true, true);
 	}
-	private changeValue (value: number, supressChangeEvent?: boolean) {
+	private changeValue (value: number, supressNgModel?: boolean, supressChangeEvent?: boolean) {
 		let decimalValue = Math.pow(10, this.touchSpinOptions.decimals);
 
 		value = Math.round(value * decimalValue) / decimalValue;
 
 		this.val = value.toFixed(this.touchSpinOptions.decimals);
-		this.ngModelController.$setViewValue(value);
+
+		if (!supressNgModel) {
+			this.ngModelController.$setViewValue(value);
+		}	
 
 		if (!supressChangeEvent && (<any>this.$attrs).onChange) {
 			this.$timeout(() => {

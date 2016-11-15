@@ -1,5 +1,5 @@
 /*!
-* angular-touchspin JavaScript Library v1.3.0
+* angular-touchspin JavaScript Library v1.4.0
 *
 * @license MIT
 *
@@ -201,22 +201,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.ngModelController = this.$element.controller('ngModel');
 	        this.ngModelController.$formatters.push(function (value) {
 	            if (angular.isNumber(value) && !_this.ngModelController.$isEmpty(value)) {
-	                _this.val = value.toFixed(_this.touchSpinOptions.decimals);
+	                _this.changeValue(value, true, true);
 	            }
 	            return value;
 	        });
 	    };
 	    TouchSpinController.prototype.prepareOptions = function () {
 	        this.touchSpinOptions = angular.extend({}, this.touchSpinConfig, this.options);
-	        var value = this.ngModelController.$modelValue || this.touchSpinOptions.initVal || this.touchSpinOptions.min;
-	        this.changeValue(value, true);
+	        var value = this.ngModelController.$modelValue || this.touchSpinOptions.min;
+	        this.changeValue(value, true, true);
 	    };
-	    TouchSpinController.prototype.changeValue = function (value, supressChangeEvent) {
+	    TouchSpinController.prototype.changeValue = function (value, supressNgModel, supressChangeEvent) {
 	        var _this = this;
 	        var decimalValue = Math.pow(10, this.touchSpinOptions.decimals);
 	        value = Math.round(value * decimalValue) / decimalValue;
 	        this.val = value.toFixed(this.touchSpinOptions.decimals);
-	        this.ngModelController.$setViewValue(value);
+	        if (!supressNgModel) {
+	            this.ngModelController.$setViewValue(value);
+	        }
 	        if (!supressChangeEvent && this.$attrs.onChange) {
 	            this.$timeout(function () {
 	                _this.onChange({ value: value });
@@ -300,7 +302,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	            max: 100,
 	            min: 0,
 	            step: 1,
-	            initVal: 0,
 	            mousewheel: true,
 	            prefix: '',
 	            postfix: '',

@@ -9,7 +9,6 @@ export class TouchSpinConfig implements angular.touchspin.ITouchSpinConfigProvid
 			max: 100,
 			min: 0,
 			step: 1,
-			initVal: 0,
 			mousewheel: true,
 			prefix: '',
 			postfix: '',

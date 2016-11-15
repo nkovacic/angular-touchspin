@@ -23,7 +23,6 @@ declare module angular.touchspin {
 		verticalButtons?: boolean;
 		verticalUpClass?: string;
 		verticalDownClass?: string;
-		initVal?: number;
 		prefix?: string;
 		postfix?: string;
 		prefixExtraClass?: string;

@@ -73,3 +73,38 @@ OR
 <touch-spin ng-model="numberVariable"></touch-spin>
 ```
 This acts similar to a regular AngularJS / form input if you give it a name attribute, allowing for form submission and AngularJS form validation.
+
+### Options
+
+angular-touchspin can be configured using an options attribute `options="optionsVariable"` where `optionsVariable` is the scope variable that will hold options for the touchspin control.
+```html
+<div touch-spin ng-model="numberVariable" options="optionsVariable"></div>
+```
+OR
+```html
+<touch-spin ng-model="numberVariable" options="optionsVariable"></touch-spin>
+```
+Available options:
+```javascript
+interface ITouchSpinOptions {
+	min?: number;
+	max?: number;
+	step?: number;
+	decimals?: number;
+	stepInterval?: number;
+	forceStepDivisibility?: string; // none | floor | round | ceil
+	stepIntervalDelay?: number;
+	verticalButtons?: boolean;
+	verticalUpClass?: string;
+	verticalDownClass?: string;
+	prefix?: string;
+	postfix?: string;
+	prefixExtraClass?: string;
+	postfixExtraClass?: string;
+	mousewheel?: boolean;
+	buttonDownClass?: string;
+	buttonUpClass?: string;
+	buttonDownTxt?: string;
+	buttonUpTxt?: string;
+}
+```

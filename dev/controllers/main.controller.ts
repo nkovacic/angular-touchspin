@@ -3,10 +3,13 @@ export class MainController {
 	public touchSpinVerticalOptions: angular.touchspin.ITouchSpinOptions;
 	public currency: number;
 	public currency1: number;
+	public currency2: number;
 	public touchSpinDisabled: boolean;
 
 	constructor() {
-		this.currency1 = 10;
+		this.currency = 10;
+		this.currency1 = 20;
+		this.currency2 = 30;
 		this.touchSpinDisabled = false;
 		this.touchSpinOptions = {
 			decimals: 2,

@@ -23,11 +23,16 @@ export class TouchSpinController {
 
 		this.inputElement = this.$element.find('input');
 
+		if (angular.version.major === 1 && angular.version.minor < 5) {
+			this.$onInit();
+		}
+	}
+
+	$onInit () {
 		this.prepareNgModel();
 		this.prepareOptions();
 		this.initializeEvents();
 	}
-
 	startSpinUp () {
 		this.checkValue();
 

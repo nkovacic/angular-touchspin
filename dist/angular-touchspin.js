@@ -1,5 +1,5 @@
 /*!
-* angular-touchspin JavaScript Library v1.4.1
+* angular-touchspin JavaScript Library v1.4.2
 *
 * @license MIT
 *
@@ -101,10 +101,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.$timeout = $timeout;
 	        this.touchSpinConfig = touchSpinConfig;
 	        this.inputElement = this.$element.find('input');
+	        if (angular.version.major === 1 && angular.version.minor < 5) {
+	            this.$onInit();
+	        }
+	    }
+	    TouchSpinController.prototype.$onInit = function () {
 	        this.prepareNgModel();
 	        this.prepareOptions();
 	        this.initializeEvents();
-	    }
+	    };
 	    TouchSpinController.prototype.startSpinUp = function () {
 	        var _this = this;
 	        this.checkValue();

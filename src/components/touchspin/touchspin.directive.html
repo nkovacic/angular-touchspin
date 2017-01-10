@@ -1,4 +1,4 @@
-<div class="input-group bootstrap-touchspin">
+<div class="input-group bootstrap-touchspin" ng-class="{ 'bootstrap-touchspin-disabled': vm.disabled }">
     <span class="input-group-btn" ng-if="!vm.touchSpinOptions.verticalButtons">
         <button ng-class="vm.touchSpinOptions.buttonDownClass" ng-disabled="vm.disabled" ng-mousedown="vm.startSpinDown()" ng-mouseup="vm.stopSpin()">
             -

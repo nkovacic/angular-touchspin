@@ -1,5 +1,5 @@
 /*!
-* angular-touchspin JavaScript Library v1.4.2
+* angular-touchspin JavaScript Library v1.4.3
 *
 * @license MIT
 *
@@ -188,7 +188,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    TouchSpinController.prototype.initializeEvents = function () {
 	        var _this = this;
 	        this.inputElement.on('mousewheel DOMMouseScroll', function (ev) {
-	            if (!_this.touchSpinOptions.mousewheel) {
+	            if (!_this.touchSpinOptions.mousewheel || !_this.focused) {
 	                return;
 	            }
 	            var delta = !angular.isUndefined(ev.originalEvent) ? ev.originalEvent.wheelDelta || -ev.originalEvent.wheelDeltaY || -ev.originalEvent.detail : ev.wheelDelta || -ev.wheelDeltaY || -ev.detail;

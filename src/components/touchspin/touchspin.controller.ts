@@ -126,7 +126,7 @@ export class TouchSpinController {
 
 	private initializeEvents() {
 		this.inputElement.on('mousewheel DOMMouseScroll', (ev: JQueryMouseEventObject) => {
-			if (!this.touchSpinOptions.mousewheel) {
+			if (!this.touchSpinOptions.mousewheel || !this.focused) {
 				return;
 			}
 

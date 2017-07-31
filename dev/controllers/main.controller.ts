@@ -15,7 +15,6 @@ export class MainController {
 			decimals: 2,
 			max: 100,
 			min: 1,
-			step: 0.1,
 			prefix: '$',
 			//postfix: '%'
 		};

@@ -7,11 +7,12 @@ export class TouchSpinController {
 	public disabled: boolean;
 	public options: angular.touchspin.ITouchSpinOptions;
 	public val: string;
-
-	private mouseButtonDown: boolean;
+	
 	private clickStart: number;
 	private focused: boolean;
 	private inputElement: angular.IAugmentedJQuery;
+	private isButtonTouching: boolean;
+	private isMouseButtonDown: boolean;
 	private ngModelController: angular.INgModelController;
 	private oldVal: string;
 	private timeout: angular.IPromise<any>;
@@ -34,7 +35,7 @@ export class TouchSpinController {
 		this.prepareOptions();
 		this.initializeEvents();
 	}
-	startSpinUp () {
+	public startSpinUp () {
 		this.checkValue();
 
 		if (this.touchSpinOptions.verticalButtons) {
@@ -63,7 +64,7 @@ export class TouchSpinController {
 			}, this.touchSpinOptions.stepInterval);
 		}, this.touchSpinOptions.stepIntervalDelay);
 	}
-	startSpinDown() {
+	public startSpinDown() {
 		this.checkValue();
 
 		if (this.touchSpinOptions.verticalButtons) {
@@ -87,7 +88,7 @@ export class TouchSpinController {
 			}, this.touchSpinOptions.stepInterval);
 		}, this.touchSpinOptions.stepIntervalDelay);
 	}
-	stopSpin(force?: boolean) {
+	public stopSpin(force?: boolean) {
 		if (force || Date.now() - this.clickStart > this.touchSpinOptions.stepIntervalDelay) {
 			this.$timeout.cancel(this.timeout);
 			this.$interval.cancel(this.timer);
@@ -98,7 +99,7 @@ export class TouchSpinController {
 			}, this.touchSpinOptions.stepIntervalDelay);
 		}
 	}
-	checkValue() {
+	public checkValue() {
 		if (this.ngModelController.$isEmpty(this.val)) {
 			this.changeValue(this.touchSpinOptions.min);
 		}
@@ -126,9 +127,72 @@ export class TouchSpinController {
 
 		this.focused = false;
 	}
-	focus() {
+	public focus() {
 		this.focused = true;
 	}
+	public keyUp(event: KeyboardEvent) {
+    	let code = event.keyCode || event.which;
+
+        if (code === Char.ArrowDown || code === Char.ArrowUp) {
+            this.stopSpin();
+
+            event.preventDefault();
+        }
+    }
+	public keyDown(event: KeyboardEvent) {
+    	let  code = event.keyCode || event.which;
+
+        if (code === Char.ArrowUp) {
+        	this.startSpinUp();
+
+        	event.preventDefault();
+        }
+        else if (code === Char.ArrowDown) {
+            this.startSpinDown();
+
+            event.preventDefault();
+        }
+    }
+    public mouseDown(event: MouseEvent, increment: boolean) {
+    	console.log('mouse down: ' + event);
+
+    	this.isMouseButtonDown = true;
+
+		if (increment) {
+			this.startSpinUp();
+		}
+		else {
+			this.startSpinDown();
+		}   	
+    }
+    public mouseUp(event: MouseEvent) {
+    	console.log('mouse up: ' + event);
+		this.isMouseButtonDown = false;
+		
+    	this.stopSpin();
+    }
+    public mouseLeave(event: MouseEvent) {
+    	console.log('mouse leave: ' + event);
+
+    	if (this.isMouseButtonDown) {
+    		this.mouseUp(event);
+    	}
+    }
+    public buttonTouchStart(event: TouchEvent, increment: boolean) {
+    	this.isButtonTouching = true;
+
+    	if (increment) {
+			this.startSpinUp();
+		}
+		else {
+			this.startSpinDown();
+		}   
+    }
+    public buttonTouchEnd(event: TouchEvent) {
+    	this.isButtonTouching = false;
+		
+    	this.stopSpin();
+    }
 
 	private initializeEvents() {
 		this.inputElement.on('mousewheel DOMMouseScroll', (ev: JQueryMouseEventObject) => {
@@ -211,51 +275,4 @@ export class TouchSpinController {
 
 		this.changeValue(value);
 	}
-	private keyUp(event: KeyboardEvent) {
-    	let code = event.keyCode || event.which;
-
-        if (code === Char.ArrowDown || code === Char.ArrowUp) {
-            this.stopSpin();
-
-            event.preventDefault();
-        }
-    }
-	private keyDown(event: KeyboardEvent) {
-    	let  code = event.keyCode || event.which;
-
-        if (code === Char.ArrowUp) {
-        	this.startSpinUp();
-
-        	event.preventDefault();
-        }
-        else if (code === Char.ArrowDown) {
-            this.startSpinDown();
-
-            event.preventDefault();
-        }
-    }
-    private mouseDown(event: MouseEvent, increment: boolean) {
-    	this.mouseButtonDown = true;
-
-		if (increment) {
-			this.startSpinUp();
-		}
-		else {
-			this.startSpinDown();
-		}   	
-    }
-    private mouseUp(event: MouseEvent) {
-		this.mouseButtonDown = false;
-
-		
-    	this.stopSpin();
-    }
-    private mouseEnter(event: MouseEvent, increment: boolean) {
-
-    }
-    private mouseLeave(event: MouseEvent) {
-    	if (this.mouseButtonDown) {
-    		this.mouseUp(event);
-    	}
-    }
 }

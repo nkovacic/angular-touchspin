@@ -87,10 +87,17 @@ OR
 Available options:
 ```javascript
 interface ITouchSpinOptions {
+	buttonDownClass?: string;	
+	buttonDownShow?: boolean;	
+	buttonDownTxt?: string;
+	buttonUpClass?: string;
+	buttonUpShow?: boolean;
+	buttonUpTxt?: string;
 	min?: number;
 	max?: number;
 	step?: number;
 	decimals?: number;
+	decimalsDelimiter?: string;
 	stepInterval?: number;
 	forceStepDivisibility?: string; // none | floor | round | ceil
 	stepIntervalDelay?: number;
@@ -102,10 +109,6 @@ interface ITouchSpinOptions {
 	prefixExtraClass?: string;
 	postfixExtraClass?: string;
 	mousewheel?: boolean;
-	buttonDownClass?: string;
-	buttonUpClass?: string;
-	buttonDownTxt?: string;
-	buttonUpTxt?: string;
 }
 ```
 

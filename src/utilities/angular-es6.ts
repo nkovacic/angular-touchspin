@@ -1,3 +1,9 @@
+import * as angular from 'angular';
+
+export interface IDirectiveES6 {
+    controller: string | ng.Injectable<ng.IControllerConstructor>;
+}
+
 export interface IAngularES6Module {
     name: string;
     constant(name: string, value: any): IAngularES6Module;
@@ -44,7 +50,7 @@ export class AngularES6 implements IAngularES6Module {
 
         return this;
     }
-    directive(name: string, constructorFn: angular.IDirective) {
+    directive(name: string, constructorFn: any) {
         let normalizedConstructorFn = this.normalizeConstructor(constructorFn);
 
         if (!normalizedConstructorFn.prototype.compile) {

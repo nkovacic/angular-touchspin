@@ -1,11 +1,17 @@
-export class TouchSpinConfig implements angular.touchspin.ITouchSpinConfigProvider, angular.IServiceProvider {
-	private defaultTouchSpinOptions: angular.touchspin.ITouchSpinOptions;
+import * as angular from 'angular';
+import { ITouchSpinConfig, ITouchSpinConfigProvider, ITouchSpinOptions} from '../angular-touchspin';
+
+export class TouchSpinConfig implements ITouchSpinConfigProvider, angular.IServiceProvider {
+	private defaultTouchSpinOptions: ITouchSpinOptions;
 
 	constructor() {
 		this.defaultTouchSpinOptions = {
 			buttonDownClass: 'btn btn-default',
+			buttonDownShow: true,
 			buttonUpClass: 'btn btn-default',
+			buttonUpShow: true,
 			decimals: 0,
+			decimalsDelimiter: '.',
 			max: 100,
 			min: 0,
 			step: 1,
@@ -20,10 +26,10 @@ export class TouchSpinConfig implements angular.touchspin.ITouchSpinConfigProvid
 		}
 	}
 
-	defaults(options: angular.touchspin.ITouchSpinOptions) {
+	defaults(options: ITouchSpinOptions) {
 		this.defaultTouchSpinOptions = angular.extend({}, this.defaultTouchSpinOptions, options);
 	}
-	$get(): angular.touchspin.ITouchSpinConfig {
+	$get(): ITouchSpinConfig {
 		return this.defaultTouchSpinOptions;
 	}
 }

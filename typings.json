@@ -1,8 +1,0 @@
-{
-	"name": "angular-touchspin",
-    "globalDependencies": {
-        "angular": "github:DefinitelyTyped/DefinitelyTyped/angularjs/angular.d.ts#bcd5761826eb567876c197ccc6a87c4d05731054",
-        "jquery": "github:DefinitelyTyped/DefinitelyTyped/jquery/jquery.d.ts#bcd5761826eb567876c197ccc6a87c4d05731054",
-        "webpack-env": "github:DefinitelyTyped/DefinitelyTyped/webpack/webpack-env.d.ts#bcd5761826eb567876c197ccc6a87c4d05731054"
-    }
-}

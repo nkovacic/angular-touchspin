@@ -1,7 +1,9 @@
-import './touchspin.style';
+import { IDirective } from 'angular';
 import { TouchSpinController } from './touchspin.controller';
 
-export class TouchSpinDirective implements angular.IDirective {
+import './touchspin.style';
+
+export class TouchSpinDirective implements IDirective  {
 	public restrict = 'EA';
     public require = '^ngModel';
     public scope = {};

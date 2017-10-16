@@ -1,3 +1,5 @@
+import * as angular from 'angular';
+
 export class TouchStartController {
 	private 
 
@@ -15,8 +17,6 @@ export class TouchStartController {
 
 	private initializeEvents() {
 		this.$element.on('touchstart', (event) => {
-			console.log('touchstart');
-
             this.$scope.$apply(() => { 
                 this.$scope.$eval(this.$attrs['nkTouchstart'], { $event: event }); 
             });

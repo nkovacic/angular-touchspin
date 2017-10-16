@@ -1,3 +1,7 @@
+import * as angular from 'angular';
+
+import { ITouchSpinOptions, ITouchSpinConfig } from '../../angular-touchspin';
+
 const enum Char {
 	ArrowDown = 40,
 	ArrowUp = 38
@@ -5,7 +9,7 @@ const enum Char {
 
 export class TouchSpinController {
 	public disabled: boolean;
-	public options: angular.touchspin.ITouchSpinOptions;
+	public options: ITouchSpinOptions;
 	public val: string;
 	
 	private clickStart: number;
@@ -13,14 +17,15 @@ export class TouchSpinController {
 	private inputElement: angular.IAugmentedJQuery;
 	private isButtonTouching: boolean;
 	private isMouseButtonDown: boolean;
+	private numberRegex: RegExp;
 	private ngModelController: angular.INgModelController;
 	private oldVal: string;
 	private timeout: angular.IPromise<any>;
 	private timer: angular.IPromise<any>;
-	private touchSpinOptions: angular.touchspin.ITouchSpinOptions;
+	private touchSpinOptions: ITouchSpinOptions;
 
 	constructor(private $element: angular.IAugmentedJQuery, private $attrs: angular.IAttributes,
-		private $interval: angular.IIntervalService, private $timeout: angular.ITimeoutService, private touchSpinConfig: angular.touchspin.ITouchSpinConfig) {
+		private $interval: angular.IIntervalService, private $timeout: angular.ITimeoutService, private touchSpinConfig: ITouchSpinConfig) {
 		'ngInject';
 
 		this.inputElement = this.$element.find('input');
@@ -50,10 +55,6 @@ export class TouchSpinController {
 		this.clickStart = Date.now();
 
 		this.timeout = this.$timeout(() => {
-			// if (this.timer) {
-			// 	this.$interval.cancel(this.timer);
-			// }
-
 			this.timer = this.$interval(() => {
 				if (this.touchSpinOptions.verticalButtons) {
 					this.decrement();
@@ -77,7 +78,7 @@ export class TouchSpinController {
 		this.clickStart = Date.now();
 		this.stopSpin();
 
-		this.$timeout(() => {
+		this.timeout = this.$timeout(() => {
 			this.timer = this.$interval(() => {
 				if (this.touchSpinOptions.verticalButtons) {
 					this.increment();
@@ -92,7 +93,7 @@ export class TouchSpinController {
 		if (force || Date.now() - this.clickStart > this.touchSpinOptions.stepIntervalDelay) {
 			this.$timeout.cancel(this.timeout);
 			this.$interval.cancel(this.timer);
-		} else {
+		} else if (!this.isButtonTouching && !this.isMouseButtonDown) {
 			this.$timeout(() => {
 				this.$timeout.cancel(this.timeout);
 				this.$interval.cancel(this.timer);
@@ -103,17 +104,9 @@ export class TouchSpinController {
 		if (this.ngModelController.$isEmpty(this.val)) {
 			this.changeValue(this.touchSpinOptions.min);
 		}
-		else if (!this.val.match(/^-?(?:\d+|\d*\.\d+)$/i)) {
-			if (this.oldVal !== '') {
-				this.changeValue(parseFloat(this.oldVal))
-			}
-			else {
-				this.changeValue(this.touchSpinOptions.min);
-			}
-		}
-		else {
-			let value = parseFloat(this.val);
-
+		else if (this.numberRegex.test(this.val)) {
+			let value = this.getNumberValue(this.val);
+			
 			if (value > this.touchSpinOptions.max) {
 				this.changeValue(this.touchSpinOptions.max);
 			}
@@ -122,6 +115,14 @@ export class TouchSpinController {
 			}
 			else {
 				this.changeValue(value);
+			}
+		}
+		else {
+			if (this.oldVal !== '') {
+				this.changeValue(this.getNumberValue(this.oldVal))
+			}
+			else {
+				this.changeValue(this.touchSpinOptions.min);
 			}
 		}
 
@@ -134,7 +135,7 @@ export class TouchSpinController {
     	let code = event.keyCode || event.which;
 
         if (code === Char.ArrowDown || code === Char.ArrowUp) {
-            this.stopSpin();
+            this.stopSpin(true);
 
             event.preventDefault();
         }
@@ -154,8 +155,6 @@ export class TouchSpinController {
         }
     }
     public mouseDown(event: MouseEvent, increment: boolean) {
-    	console.log('mouse down: ' + event);
-
     	this.isMouseButtonDown = true;
 
 		if (increment) {
@@ -166,14 +165,11 @@ export class TouchSpinController {
 		}   	
     }
     public mouseUp(event: MouseEvent) {
-    	console.log('mouse up: ' + event);
 		this.isMouseButtonDown = false;
 		
-    	this.stopSpin();
+    	this.stopSpin(true);
     }
     public mouseLeave(event: MouseEvent) {
-    	console.log('mouse leave: ' + event);
-
     	if (this.isMouseButtonDown) {
     		this.mouseUp(event);
     	}
@@ -195,7 +191,7 @@ export class TouchSpinController {
     }
 
 	private initializeEvents() {
-		this.inputElement.on('mousewheel DOMMouseScroll', (ev: JQueryMouseEventObject) => {
+		this.inputElement.on(<any>'mousewheel DOMMouseScroll', (ev: JQueryMouseEventObject) => {
 			if (!this.touchSpinOptions.mousewheel || !this.focused) {
 				return;
 			}
@@ -219,6 +215,8 @@ export class TouchSpinController {
 
 		this.ngModelController.$formatters.push((value) => {
 			if (angular.isNumber(value) && !this.ngModelController.$isEmpty(value)) {
+				this.oldVal = this.val;
+
 				this.changeValue(value, true, true);
 			}
 
@@ -227,6 +225,7 @@ export class TouchSpinController {
 	}
 	private prepareOptions() {
 		this.touchSpinOptions = angular.extend({}, this.touchSpinConfig, this.options);
+		this.numberRegex = new RegExp(`^-?(?:\\d+|\\d*${this.escapeRegExp(this.touchSpinOptions.decimalsDelimiter)}\\d+)$`, 'i');
 
 		let value: number = this.ngModelController.$modelValue || this.touchSpinOptions.min;
 
@@ -239,20 +238,24 @@ export class TouchSpinController {
 
 		this.val = value.toFixed(this.touchSpinOptions.decimals);
 
+		if (this.touchSpinOptions.decimalsDelimiter !== '.') {
+			this.val = this.val.replace('.', ',');
+		}
+
 		if (!supressNgModel) {
-			this.ngModelController.$setViewValue(value);
+			this.ngModelController.$setViewValue(this.val);
 		}	
 
 		if (!supressChangeEvent && (<any>this.$attrs).onChange) {
 			this.$timeout(() => {
-				(<any>this).onChange({ value: value });
+				(<any>this).onChange({ oldValue: this.getNumberValue(this.oldVal), value: value });
 			});
 		}
 	}
 	private decrement () {
 		this.oldVal = this.val;
 
-		let value = parseFloat(this.val) - this.touchSpinOptions.step;
+		let value = this.getNumberValue(this.val) - this.touchSpinOptions.step;
 
 		if (value < this.touchSpinOptions.min) {
 			this.changeValue(this.touchSpinOptions.min);
@@ -262,10 +265,14 @@ export class TouchSpinController {
 
 		this.changeValue(value);
 	}
+	private escapeRegExp(stringToGoIntoTheRegex) {
+	    return stringToGoIntoTheRegex.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+	}
+
 	private increment () {
 		this.oldVal = this.val;
 
-		let value = parseFloat(this.val) + this.touchSpinOptions.step;
+		let value = this.getNumberValue(this.val) + this.touchSpinOptions.step;
 
 		if (value > this.touchSpinOptions.max) {
 			this.changeValue(this.touchSpinOptions.max);
@@ -274,5 +281,12 @@ export class TouchSpinController {
 		}
 
 		this.changeValue(value);
+	}
+	private getNumberValue(value: string) {
+		if (this.touchSpinOptions.decimalsDelimiter !== '.') {
+			value = value.replace(this.touchSpinOptions.decimalsDelimiter, '.');
+		}
+
+		return parseFloat(value);
 	}
 }

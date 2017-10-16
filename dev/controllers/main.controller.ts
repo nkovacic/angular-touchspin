@@ -1,15 +1,21 @@
+import * as angular from 'angular';
+import { ITouchSpinOptions } from '../../src/angular-touchspin';
+
 export class MainController {
-	public touchSpinOptions: angular.touchspin.ITouchSpinOptions;
-	public touchSpinVerticalOptions: angular.touchspin.ITouchSpinOptions;
+	public touchSpinOptions: ITouchSpinOptions;
+	public touchSpinDelimiterOptions: ITouchSpinOptions;
+	public touchSpinVerticalOptions: ITouchSpinOptions;
 	public currency: number;
 	public currency1: number;
 	public currency2: number;
+	public currency3: number;
 	public touchSpinDisabled: boolean;
 
 	constructor() {
 		this.currency = 10;
 		this.currency1 = 20;
 		this.currency2 = 30;
+		this.currency3 = 50;
 		this.touchSpinDisabled = false;
 		this.touchSpinOptions = {
 			decimals: 2,
@@ -18,6 +24,10 @@ export class MainController {
 			prefix: '$',
 			//postfix: '%'
 		};
+
+		this.touchSpinDelimiterOptions = angular.extend({}, this.touchSpinOptions, <ITouchSpinOptions>{ 
+			decimalsDelimiter: ','
+		});
 
 		this.touchSpinVerticalOptions = {
 			decimals: 2,
@@ -29,7 +39,7 @@ export class MainController {
 		};
 	}
 
-	onTouchSpinChange(value: number) {
-		console.log(value)
+	onTouchSpinChange(oldValue: number, value: number) {
+		console.log('OldValue: ' + oldValue + ', newValue: ' + value);
 	}
 }

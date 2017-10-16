@@ -5,18 +5,28 @@
 
 //// <reference path="../angularjs/angular.d.ts" />
 
-
 declare module "angular-touchspin" {
-    let _: string;
+	let _: string;
     export = _;
 }
 
-declare module angular.touchspin {
+export type ITouchSpinOptions = angularTouchSpin.ITouchSpinOptions;
+export type ITouchSpinConfig = angularTouchSpin.ITouchSpinConfig;
+export type ITouchSpinConfigProvider = angularTouchSpin.ITouchSpinConfigProvider;
+
+declare namespace angularTouchSpin {
 	interface ITouchSpinOptions {
+		buttonDownClass?: string;	
+		buttonDownShow?: boolean;	
+		buttonDownTxt?: string;
+		buttonUpClass?: string;
+		buttonUpShow?: boolean;
+		buttonUpTxt?: string;
 		min?: number;
 		max?: number;
 		step?: number;
 		decimals?: number;
+		decimalsDelimiter?: string;
 		stepInterval?: number;
 		forceStepDivisibility?: string; // none | floor | round | ceil
 		stepIntervalDelay?: number;
@@ -28,10 +38,6 @@ declare module angular.touchspin {
 		prefixExtraClass?: string;
 		postfixExtraClass?: string;
 		mousewheel?: boolean;
-		buttonDownClass?: string;
-		buttonUpClass?: string;
-		buttonDownTxt?: string;
-		buttonUpTxt?: string;
 	}
 
 	interface ITouchSpinConfig extends ITouchSpinOptions { }

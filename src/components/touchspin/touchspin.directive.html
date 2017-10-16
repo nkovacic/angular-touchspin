@@ -1,5 +1,5 @@
 <div class="input-group bootstrap-touchspin" ng-class="{ 'bootstrap-touchspin-disabled': vm.disabled }">
-    <span class="input-group-btn" ng-if="!vm.touchSpinOptions.verticalButtons">
+    <span class="input-group-btn" ng-if="!vm.touchSpinOptions.verticalButtons && vm.touchSpinOptions.buttonDownShow">
         <button ng-class="vm.touchSpinOptions.buttonDownClass" type="button" ng-disabled="vm.disabled" 
             ng-mousedown="vm.mouseDown($event, false)" ng-mouseup="vm.mouseUp($event)" ng-mouseenter="vm.mouseEnter($event)" ng-mouseleave="vm.mouseLeave($event)"
             nk-touchstart="vm.buttonTouchStart($event, false)" nk-touchend="vm.buttonTouchEnd($event)">
@@ -11,20 +11,20 @@
     <input type="text" ng-model="vm.val" class="form-control" ng-disabled="vm.disabled" ng-blur="vm.checkValue()" ng-focus="vm.focus()" ng-keyup="vm.keyUp($event)" ng-keydown="vm.keyDown($event)" />
     <span class="input-group-addon" ng-class="vm.touchSpinOptions.postfixExtraClass" ng-if="vm.touchSpinOptions.postfix" ng-bind="vm.touchSpinOptions.postfix">
     </span>
-    <span class="input-group-btn" ng-if="!vm.touchSpinOptions.verticalButtons">
+    <span class="input-group-btn" ng-if="!vm.touchSpinOptions.verticalButtons && vm.touchSpinOptions.buttonUpShow">
         <button class="btn btn-default" ng-class="vm.touchSpinOptions.buttonUpClass" type="button" ng-disabled="vm.disabled" 
             ng-mousedown="vm.mouseDown($event, true)" ng-mouseup="vm.mouseUp($event)" ng-mouseenter="vm.mouseEnter($event)" ng-mouseleave="vm.mouseLeave($event)"
             nk-touchstart="vm.buttonTouchStart($event, false)" nk-touchend="vm.buttonTouchEnd($event)">
             +
         </button>
     </span>
-    <span class="input-group-btn-vertical" ng-if="vm.touchSpinOptions.verticalButtons">
-        <button class="bootstrap-touchspin-up" ng-class="vm.touchSpinOptions.buttonUpClass" type="button" ng-disabled="vm.disabled" 
+    <span class="input-group-btn-vertical" ng-if="vm.touchSpinOptions.verticalButtons && (vm.touchSpinOptions.buttonDownShow || vm.touchSpinOptions.buttonUpShow)">
+        <button class="bootstrap-touchspin-up" ng-class="vm.touchSpinOptions.buttonUpClass" type="button" ng-disabled="vm.disabled" ng-show="vm.touchSpinOptions.buttonUpShow"
             ng-mousedown="vm.mouseDown($event, false)" ng-mouseup="vm.mouseUp($event)" ng-mouseenter="vm.mouseEnter($event)" 
             ng-mouseleave="vm.mouseLeave($event)" nk-touchstart="vm.buttonTouchStart($event, false)" nk-touchend="vm.buttonTouchEnd($event)">
             <i ng-class="vm.touchSpinOptions.verticalUpClass"></i>
         </button>
-        <button class="bootstrap-touchspin-down" ng-class="vm.touchSpinOptions.buttonUpClass" type="button" ng-disabled="vm.disabled" 
+        <button class="bootstrap-touchspin-down" ng-class="vm.touchSpinOptions.buttonUpClass" type="button" ng-disabled="vm.disabled" ng-show="vm.touchSpinOptions.buttonDownShow"
             ng-mousedown="vm.mouseDown($event, true)" ng-mouseup="vm.mouseUp($event)" ng-mouseenter="vm.mouseEnter($event)" 
             ng-mouseleave="vm.mouseLeave($event)" nk-touchstart="vm.buttonTouchStart($event, true)" nk-touchend="vm.buttonTouchEnd($event)">
             <i ng-class="vm.touchSpinOptions.verticalDownClass"></i>

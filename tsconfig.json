@@ -3,15 +3,18 @@
         "target": "es5",
         "module": "commonjs",
         "declaration": true,
+        "lib": ["es2015", "es2015.iterable", "dom"],
         "removeComments": false,
         "sourceMap": true
     },
     "compileOnSave": false,
     "files": [
-        "dev/index.ts",
+        "dev/index.ts",     
         "src/angular-touchspin.d.ts",
-        "src/angular-touchspin.module.ts",
-        "typings/index.d.ts"   
+        "src/angular-touchspin.module.ts"
     ],
-    "version": "1.8.10"
+    "include": [
+        "node_modules/@types/**/*"
+    ],
+    "version": "2.5.3"
 }

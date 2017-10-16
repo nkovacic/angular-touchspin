@@ -1,6 +1,6 @@
 {
     "name": "angular-touchspin",
-    "version": "1.4.6",
+    "version": "1.5.0",
     "author": "Niko Kovačič <niko.kovacic2@gmail.com>",
     "title": "Angular Touchspin",
     "description": "A input spinner component for Bootstrap 3 and angular",
@@ -17,7 +17,8 @@
         "angular touchspin"
     ],
     "main": "./dist/angular-touchspin.js",
-    "licence": "MIT",
+    "types": "./src/angular-touchspin.d.ts",
+    "license": "MIT",
     "dependencies": {
         "angular": "~1.5"
     },
@@ -45,10 +46,12 @@
         "style-loader": "~0.13",
         "tslint": "~3.7",
         "ts-loader": "~0.8",
-        "typescript": "~1.8",
+        "typescript": "~2.5",
         "url-loader": "~0.5",
         "webpack": "~1.13",
         "webpack-dev-server": "~1.14",
-        "wrench": "~1.5"
+        "wrench": "~1.5",
+        "@types/angular": "~1.5",
+        "@types/webpack-env": "~1.13"
     }
 }

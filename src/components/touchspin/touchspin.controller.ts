@@ -106,7 +106,7 @@ export class TouchSpinController {
 		}
 		else if (this.numberRegex.test(this.val)) {
 			let value = this.getNumberValue(this.val);
-			
+
 			if (value > this.touchSpinOptions.max) {
 				this.changeValue(this.touchSpinOptions.max);
 			}
@@ -243,7 +243,7 @@ export class TouchSpinController {
 		}
 
 		if (!supressNgModel) {
-			this.ngModelController.$setViewValue(this.val);
+			this.ngModelController.$setViewValue(value);
 		}	
 
 		if (!supressChangeEvent && (<any>this.$attrs).onChange) {

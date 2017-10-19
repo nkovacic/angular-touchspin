@@ -35,11 +35,12 @@ export class MainController {
 			min: 1,
 			step: 0.1,
 			prefix: '$',
+			postfix: '%',
 			verticalButtons: true
 		};
 	}
 
 	onTouchSpinChange(oldValue: number, value: number) {
-		console.log('OldValue: ' + oldValue + ', newValue: ' + value);
+		console.log('OldValue: ' + oldValue + ', newValue: ' + value + ', Model: ' + this.currency3);
 	}
 }

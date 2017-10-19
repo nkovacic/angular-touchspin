@@ -1,20 +1,17 @@
-// Type definitions for Angular Touchspin v1.0.0
+// Type definitions for Angular Touchspin v1.5.0
 // Project: https://github.com/nkovacic/angular-touchspin
 // Definitions by: Niko Kovačič <https://github.com/nkovacic>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-//// <reference path="../angularjs/angular.d.ts" />
+/// <reference types="angular" />
 
-declare module "angular-touchspin" {
-	let _: string;
-    export = _;
-}
+import * as angular from 'angular';
 
-export type ITouchSpinOptions = angularTouchSpin.ITouchSpinOptions;
-export type ITouchSpinConfig = angularTouchSpin.ITouchSpinConfig;
-export type ITouchSpinConfigProvider = angularTouchSpin.ITouchSpinConfigProvider;
+export type ITouchSpinOptions = angularTouchspin.ITouchSpinOptions;
+export type ITouchSpinConfig = angularTouchspin.ITouchSpinConfig;
+export type ITouchSpinConfigProvider = angularTouchspin.ITouchSpinConfigProvider;
 
-declare namespace angularTouchSpin {
+declare namespace angularTouchspin {
 	interface ITouchSpinOptions {
 		buttonDownClass?: string;	
 		buttonDownShow?: boolean;	

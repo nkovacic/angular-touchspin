@@ -1,5 +1,5 @@
 /*!
-* angular-touchspin JavaScript Library v1.5.0
+* angular-touchspin JavaScript Library v1.5.1
 *
 * @license MIT
 *
@@ -333,7 +333,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.val = this.val.replace('.', ',');
 	        }
 	        if (!supressNgModel) {
-	            this.ngModelController.$setViewValue(this.val);
+	            this.ngModelController.$setViewValue(value);
 	        }
 	        if (!supressChangeEvent && this.$attrs.onChange) {
 	            this.$timeout(function () {

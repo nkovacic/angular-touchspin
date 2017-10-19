@@ -114,11 +114,11 @@ interface ITouchSpinOptions {
 
 ### Callback
 
-angular-touchspin supports callback on model change using an attribute `on-change="valueChanged(value)"` where `valueChanged` is the scope function that will be called on change.
+angular-touchspin supports callback on model change using an attribute `on-change="valueChanged(value,oldValue)"` where `valueChanged` is the scope function that will be called on change.
 ```html
-<div touch-spin ng-model="numberVariable" options="optionsVariable" on-change="valueChanged(value)"></div>
+<div touch-spin ng-model="numberVariable" options="optionsVariable" on-change="valueChanged(value,oldValue)"></div>
 ```
 OR
 ```html
-<touch-spin ng-model="numberVariable" options="optionsVariable" on-change="valueChanged(value)"></touch-spin>
+<touch-spin ng-model="numberVariable" options="optionsVariable" on-change="valueChanged(value,oldValue)"></touch-spin>
 ```

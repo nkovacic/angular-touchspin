@@ -5,6 +5,8 @@ export class MainController {
 	public touchSpinOptions: ITouchSpinOptions;
 	public touchSpinDelimiterOptions: ITouchSpinOptions;
 	public touchSpinVerticalOptions: ITouchSpinOptions;
+	public touchSpinMax: number;
+	public touchSpinMin: number;
 	public currency: number;
 	public currency1: number;
 	public currency2: number;
@@ -17,10 +19,13 @@ export class MainController {
 		this.currency2 = 30;
 		this.currency3 = 50;
 		this.touchSpinDisabled = false;
+		this.touchSpinMin = 1;
+		this.touchSpinMax = 90;
+
 		this.touchSpinOptions = {
 			decimals: 2,
 			max: 100,
-			min: 1,
+			min: 0,
 			prefix: '$',
 			//postfix: '%'
 		};

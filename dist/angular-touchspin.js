@@ -1,5 +1,5 @@
 /*!
-* angular-touchspin JavaScript Library v1.5.1
+* angular-touchspin JavaScript Library v1.6.0
 *
 * @license MIT
 *
@@ -317,6 +317,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	            return value;
 	        });
+	        if (angular.isDefined(this.min)) {
+	            this.ngModelController.$validators['min'] = function (modelValue, viewValue) {
+	                return modelValue >= _this.min;
+	            };
+	        }
+	        if (angular.isDefined(this.max)) {
+	            this.ngModelController.$validators['max'] = function (modelValue, viewValue) {
+	                return modelValue < _this.max;
+	            };
+	        }
 	    };
 	    TouchSpinController.prototype.prepareOptions = function () {
 	        this.touchSpinOptions = angular.extend({}, this.touchSpinConfig, this.options);
@@ -387,6 +397,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.scope = {};
 	        this.bindToController = {
 	            disabled: '=?',
+	            max: '=?',
+	            min: '=?',
 	            onChange: '&',
 	            options: '=?'
 	        };

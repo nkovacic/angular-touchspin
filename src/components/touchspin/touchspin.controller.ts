@@ -9,6 +9,8 @@ const enum Char {
 
 export class TouchSpinController {
 	public disabled: boolean;
+	public max: number;
+	public min: number;
 	public options: ITouchSpinOptions;
 	public val: string;
 	
@@ -35,7 +37,7 @@ export class TouchSpinController {
 		}
 	}
 
-	$onInit () {
+	public $onInit () {
 		this.prepareNgModel();
 		this.prepareOptions();
 		this.initializeEvents();
@@ -222,6 +224,18 @@ export class TouchSpinController {
 
 			return value;
 		});
+
+		if (angular.isDefined(this.min)) {
+			this.ngModelController.$validators['min'] = (modelValue: number, viewValue: number) => {
+				return modelValue >= this.min;
+			}
+		}
+
+		if (angular.isDefined(this.max)) {
+			this.ngModelController.$validators['max'] = (modelValue: number, viewValue: number) => {
+				return modelValue < this.max;
+			}
+		}		
 	}
 	private prepareOptions() {
 		this.touchSpinOptions = angular.extend({}, this.touchSpinConfig, this.options);

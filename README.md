@@ -112,6 +112,11 @@ interface ITouchSpinOptions {
 }
 ```
 
+It also supports min and max attributes for validating input value range (useful if the default value is not preffered).
+```html
+<touch-spin ng-model="numberVariable" min="minValue" max="maxValue"></touch-spin>
+```
+
 ### Callback
 
 angular-touchspin supports callback on model change using an attribute `on-change="valueChanged(value,oldValue)"` where `valueChanged` is the scope function that will be called on change.

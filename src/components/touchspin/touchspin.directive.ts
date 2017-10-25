@@ -9,6 +9,8 @@ export class TouchSpinDirective implements IDirective  {
     public scope = {};
     public bindToController = {
         disabled: '=?',
+        max: '=?',
+        min: '=?',
     	onChange: '&',
         options: '=?'
     };

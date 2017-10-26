@@ -1,5 +1,5 @@
 /*!
-* angular-touchspin JavaScript Library v1.6.0
+* angular-touchspin JavaScript Library v1.6.1
 *
 * @license MIT
 *
@@ -151,11 +151,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", { value: true });
 	var angular = __webpack_require__(1);
 	var TouchSpinController = /** @class */(function () {
-	    TouchSpinController.$inject = ["$element", "$attrs", "$interval", "$timeout", "touchSpinConfig"];
-	    function TouchSpinController($element, $attrs, $interval, $timeout, touchSpinConfig) {
+	    TouchSpinController.$inject = ["$element", "$attrs", "$scope", "$interval", "$timeout", "touchSpinConfig"];
+	    function TouchSpinController($element, $attrs, $scope, $interval, $timeout, touchSpinConfig) {
 	        'ngInject';
 	        this.$element = $element;
 	        this.$attrs = $attrs;
+	        this.$scope = $scope;
 	        this.$interval = $interval;
 	        this.$timeout = $timeout;
 	        this.touchSpinConfig = touchSpinConfig;
@@ -167,6 +168,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    TouchSpinController.prototype.$onInit = function () {
 	        this.prepareNgModel();
 	        this.prepareOptions();
+	        this.prepareWatchers();
 	        this.initializeEvents();
 	    };
 	    TouchSpinController.prototype.startSpinUp = function () {
@@ -329,10 +331,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    };
 	    TouchSpinController.prototype.prepareOptions = function () {
-	        this.touchSpinOptions = angular.extend({}, this.touchSpinConfig, this.options);
+	        this.prepareTouchspinOptions();
 	        this.numberRegex = new RegExp("^-?(?:\\d+|\\d*" + this.escapeRegExp(this.touchSpinOptions.decimalsDelimiter) + "\\d+)$", 'i');
 	        var value = this.ngModelController.$modelValue || this.touchSpinOptions.min;
 	        this.changeValue(value, true, true);
+	    };
+	    TouchSpinController.prototype.prepareTouchspinOptions = function () {
+	        this.touchSpinOptions = angular.extend({}, this.touchSpinConfig, this.options);
+	    };
+	    TouchSpinController.prototype.prepareWatchers = function () {
+	        var _this = this;
+	        this.$scope.$watch(function () {
+	            return _this.options;
+	        }, function (newValue, oldValue) {
+	            if (newValue && !angular.equals(newValue, oldValue)) {
+	                _this.prepareTouchspinOptions();
+	            }
+	        });
 	    };
 	    TouchSpinController.prototype.changeValue = function (value, supressNgModel, supressChangeEvent) {
 	        var _this = this;

@@ -26,7 +26,7 @@ export class TouchSpinController {
 	private timer: angular.IPromise<any>;
 	private touchSpinOptions: ITouchSpinOptions;
 
-	constructor(private $element: angular.IAugmentedJQuery, private $attrs: angular.IAttributes,
+	constructor(private $element: angular.IAugmentedJQuery, private $attrs: angular.IAttributes, private $scope: ng.IScope,
 		private $interval: angular.IIntervalService, private $timeout: angular.ITimeoutService, private touchSpinConfig: ITouchSpinConfig) {
 		'ngInject';
 
@@ -40,6 +40,7 @@ export class TouchSpinController {
 	public $onInit () {
 		this.prepareNgModel();
 		this.prepareOptions();
+		this.prepareWatchers();
 		this.initializeEvents();
 	}
 	public startSpinUp () {
@@ -238,12 +239,22 @@ export class TouchSpinController {
 		}		
 	}
 	private prepareOptions() {
-		this.touchSpinOptions = angular.extend({}, this.touchSpinConfig, this.options);
+		this.prepareTouchspinOptions();
 		this.numberRegex = new RegExp(`^-?(?:\\d+|\\d*${this.escapeRegExp(this.touchSpinOptions.decimalsDelimiter)}\\d+)$`, 'i');
 
 		let value: number = this.ngModelController.$modelValue || this.touchSpinOptions.min;
 
 		this.changeValue(value, true, true);
+	}
+	private prepareTouchspinOptions () {
+		this.touchSpinOptions = angular.extend({}, this.touchSpinConfig, this.options);
+	}
+	private prepareWatchers() {
+		this.$scope.$watch(() => this.options, (newValue: ITouchSpinOptions, oldValue: ITouchSpinOptions) => {
+			if (newValue && !angular.equals(newValue, oldValue)) {
+				this.prepareTouchspinOptions();
+			}
+		});
 	}
 	private changeValue (value: number, supressNgModel?: boolean, supressChangeEvent?: boolean) {
 		let decimalValue = Math.pow(10, this.touchSpinOptions.decimals);

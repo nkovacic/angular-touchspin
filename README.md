@@ -100,6 +100,7 @@ interface ITouchSpinOptions {
 	decimalsDelimiter?: string;
 	stepInterval?: number;
 	forceStepDivisibility?: string; // none | floor | round | ceil
+	inputReadOnly?: boolean;
 	stepIntervalDelay?: number;
 	verticalButtons?: boolean;
 	verticalUpClass?: string;

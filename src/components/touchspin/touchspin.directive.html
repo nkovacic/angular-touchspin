@@ -8,7 +8,8 @@
     </span>
     <span class="input-group-addon" ng-if="vm.touchSpinOptions.prefix" ng-bind="vm.touchSpinOptions.prefix">
     </span>
-    <input type="text" ng-model="vm.val" class="form-control" ng-disabled="vm.disabled" ng-blur="vm.checkValue()" ng-focus="vm.focus()" ng-keyup="vm.keyUp($event)" ng-keydown="vm.keyDown($event)" />
+    <input type="text" ng-model="vm.val" class="form-control" ng-disabled="vm.disabled" ng-blur="vm.checkValue()" ng-focus="vm.focus()" ng-keyup="vm.keyUp($event)" 
+    ng-keydown="vm.keyDown($event)" ng-readonly="vm.touchSpinOptions.inputReadOnly" />
     <span class="input-group-addon" ng-class="vm.touchSpinOptions.postfixExtraClass" ng-if="vm.touchSpinOptions.postfix" ng-bind="vm.touchSpinOptions.postfix">
     </span>
     <span class="input-group-btn" ng-if="!vm.touchSpinOptions.verticalButtons && vm.touchSpinOptions.buttonUpShow">

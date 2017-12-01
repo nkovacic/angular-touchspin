@@ -14,6 +14,7 @@ export class TouchSpinConfig implements ITouchSpinConfigProvider, angular.IServi
 			decimalsDelimiter: '.',
 			max: 100,
 			min: 0,
+			inputReadOnly: false,
 			step: 1,
 			mousewheel: true,
 			prefix: '',

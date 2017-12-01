@@ -38,6 +38,7 @@ export class MainController {
 			decimals: 2,
 			max: 100,
 			min: 1,
+			inputReadOnly: true,
 			step: 0.1,
 			prefix: '$',
 			postfix: '%',

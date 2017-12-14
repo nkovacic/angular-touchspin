@@ -11,7 +11,7 @@ import { MainController } from './controllers/main.controller';
 export default AngularES6
 	.module('nk.touchspin.test', [touchspinModule])
 	.controller('MainController', MainController)
-	.config(function(touchSpinConfigProvider: ITouchSpinConfigProvider) {
+	.config((touchSpinConfigProvider: ITouchSpinConfigProvider) => {
 		touchSpinConfigProvider.defaults(<ITouchSpinOptions>{
 			decimals: 2,
 			verticalButtons: false

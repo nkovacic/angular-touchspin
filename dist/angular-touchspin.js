@@ -1,5 +1,5 @@
 /*!
-* angular-touchspin JavaScript Library v1.7.0
+* angular-touchspin JavaScript Library v1.7.1
 *
 * @license MIT
 *
@@ -173,7 +173,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	    TouchSpinController.prototype.startSpinUp = function () {
 	        var _this = this;
-	        this.checkValue();
+	        this.checkValue(true);
 	        if (this.touchSpinOptions.verticalButtons) {
 	            this.decrement();
 	        } else {
@@ -193,7 +193,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	    TouchSpinController.prototype.startSpinDown = function () {
 	        var _this = this;
-	        this.checkValue();
+	        this.checkValue(true);
 	        if (this.touchSpinOptions.verticalButtons) {
 	            this.increment();
 	        } else {
@@ -223,7 +223,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }, this.touchSpinOptions.stepIntervalDelay);
 	        }
 	    };
-	    TouchSpinController.prototype.checkValue = function () {
+	    TouchSpinController.prototype.checkValue = function (preventSameValueChange) {
 	        if (this.ngModelController.$isEmpty(this.val)) {
 	            this.changeValue(this.touchSpinOptions.min);
 	        } else if (this.numberRegex.test(this.val)) {
@@ -232,9 +232,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.changeValue(this.touchSpinOptions.max);
 	            } else if (value < this.touchSpinOptions.min) {
 	                this.changeValue(this.touchSpinOptions.min);
-	            } else {
+	            } else if (!preventSameValueChange) {
 	                this.changeValue(value);
 	            }
+	            this.overwriteOldValue();
 	        } else {
 	            if (this.oldVal !== '') {
 	                this.changeValue(this.getNumberValue(this.oldVal));
@@ -314,7 +315,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.ngModelController = this.$element.controller('ngModel');
 	        this.ngModelController.$formatters.push(function (value) {
 	            if (angular.isNumber(value) && !_this.ngModelController.$isEmpty(value)) {
-	                _this.oldVal = _this.val;
+	                _this.overwriteOldValue(value.toString());
 	                _this.changeValue(value, true, true);
 	            }
 	            return value;
@@ -360,14 +361,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (!supressNgModel) {
 	            this.ngModelController.$setViewValue(value);
 	        }
-	        if (!supressChangeEvent && this.$attrs.onChange) {
-	            this.$timeout(function () {
-	                _this.onChange({ oldValue: _this.getNumberValue(_this.oldVal), value: value });
-	            });
+	        if (!supressChangeEvent && this.$attrs['onChange']) {
+	            var oldValue_1 = this.getNumberValue(this.oldVal),
+	                value_1 = this.getNumberValue(this.val);
+	            if (oldValue_1 != value_1) {
+	                this.$timeout(function () {
+	                    _this.onChange({ oldValue: oldValue_1, value: value_1 });
+	                });
+	            }
 	        }
 	    };
 	    TouchSpinController.prototype.decrement = function () {
-	        this.oldVal = this.val;
+	        this.overwriteOldValue();
 	        var value = this.getNumberValue(this.val) - this.touchSpinOptions.step;
 	        if (value < this.touchSpinOptions.min) {
 	            this.changeValue(this.touchSpinOptions.min);
@@ -379,7 +384,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return stringToGoIntoTheRegex.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
 	    };
 	    TouchSpinController.prototype.increment = function () {
-	        this.oldVal = this.val;
+	        this.overwriteOldValue();
 	        var value = this.getNumberValue(this.val) + this.touchSpinOptions.step;
 	        if (value > this.touchSpinOptions.max) {
 	            this.changeValue(this.touchSpinOptions.max);
@@ -392,6 +397,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            value = value.replace(this.touchSpinOptions.decimalsDelimiter, '.');
 	        }
 	        return parseFloat(value);
+	    };
+	    TouchSpinController.prototype.overwriteOldValue = function (value) {
+	        this.oldVal = value || this.val;
 	    };
 	    return TouchSpinController;
 	})();

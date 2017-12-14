@@ -31,7 +31,9 @@ export class MainController {
 		};
 
 		this.touchSpinDelimiterOptions = angular.extend({}, this.touchSpinOptions, <ITouchSpinOptions>{ 
-			decimalsDelimiter: ','
+			decimalsDelimiter: ',',
+			stepIntervalDelay: 3000,
+			prefix: '€'
 		});
 
 		this.touchSpinVerticalOptions = {

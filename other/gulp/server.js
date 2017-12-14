@@ -11,6 +11,7 @@ gulp.task('server:dev', function(callback) {
 	// Start a webpack-dev-server
 	new WebpackDevServer(webpack(webpackDevConfig), {
 		contentBase: webpackDevConfig.output.path,
+		hot: false,
 		stats: {
 			colors: true
 		}

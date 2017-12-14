@@ -44,7 +44,7 @@ export class TouchSpinController {
 		this.initializeEvents();
 	}
 	public startSpinUp () {
-		this.checkValue();
+		this.checkValue(true);
 
 		if (this.touchSpinOptions.verticalButtons) {
 			this.decrement();
@@ -69,7 +69,7 @@ export class TouchSpinController {
 		}, this.touchSpinOptions.stepIntervalDelay);
 	}
 	public startSpinDown() {
-		this.checkValue();
+		this.checkValue(true);
 
 		if (this.touchSpinOptions.verticalButtons) {
 			this.increment();
@@ -103,7 +103,7 @@ export class TouchSpinController {
 			}, this.touchSpinOptions.stepIntervalDelay);
 		}
 	}
-	public checkValue() {
+	public checkValue(preventSameValueChange?: boolean) {
 		if (this.ngModelController.$isEmpty(this.val)) {
 			this.changeValue(this.touchSpinOptions.min);
 		}
@@ -116,9 +116,11 @@ export class TouchSpinController {
 			else if (value < this.touchSpinOptions.min) {
 				this.changeValue(this.touchSpinOptions.min);
 			}
-			else {
+			else if (!preventSameValueChange) {
 				this.changeValue(value);
 			}
+
+			this.overwriteOldValue();
 		}
 		else {
 			if (this.oldVal !== '') {
@@ -216,9 +218,9 @@ export class TouchSpinController {
 	private prepareNgModel() {
 		this.ngModelController = this.$element.controller('ngModel');
 
-		this.ngModelController.$formatters.push((value) => {
+		this.ngModelController.$formatters.push((value: number) => {
 			if (angular.isNumber(value) && !this.ngModelController.$isEmpty(value)) {
-				this.oldVal = this.val;
+				this.overwriteOldValue(value.toString());
 
 				this.changeValue(value, true, true);
 			}
@@ -271,14 +273,21 @@ export class TouchSpinController {
 			this.ngModelController.$setViewValue(value);
 		}	
 
-		if (!supressChangeEvent && (<any>this.$attrs).onChange) {
-			this.$timeout(() => {
-				(<any>this).onChange({ oldValue: this.getNumberValue(this.oldVal), value: value });
-			});
+
+
+		if (!supressChangeEvent && this.$attrs['onChange']) {
+			let oldValue = this.getNumberValue(this.oldVal),
+				value = this.getNumberValue(this.val);
+
+			if (oldValue != value) {
+				this.$timeout(() => {
+					(<any>this).onChange({ oldValue: oldValue, value: value });
+				});
+			}
 		}
 	}
 	private decrement () {
-		this.oldVal = this.val;
+		this.overwriteOldValue();
 
 		let value = this.getNumberValue(this.val) - this.touchSpinOptions.step;
 
@@ -295,7 +304,7 @@ export class TouchSpinController {
 	}
 
 	private increment () {
-		this.oldVal = this.val;
+		this.overwriteOldValue();
 
 		let value = this.getNumberValue(this.val) + this.touchSpinOptions.step;
 
@@ -313,5 +322,8 @@ export class TouchSpinController {
 		}
 
 		return parseFloat(value);
+	}
+	private overwriteOldValue(value?: string) {
+		this.oldVal = value || this.val;
 	}
 }

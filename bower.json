@@ -1,6 +1,6 @@
 {
     "name": "angular-touchspin",
-    "version": "1.7.1",
+    "version": "1.8.0",
     "authors": [
         "Niko Kovacic <niko.kovacic2@gmail.com>"
     ],
@@ -30,6 +30,6 @@
         "other"
     ],
     "dependencies": {
-        "angular": "^1.4.x"
+        "angular": "^1.5.x"
     }
 }

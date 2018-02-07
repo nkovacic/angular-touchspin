@@ -173,13 +173,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	    TouchSpinController.prototype.startSpinUp = function () {
 	        var _this = this;
+	        this.stopSpin();
 	        this.checkValue(true);
 	        if (this.touchSpinOptions.verticalButtons) {
 	            this.decrement();
 	        } else {
 	            this.increment();
 	        }
-	        this.stopSpin(true);
 	        this.clickStart = Date.now();
 	        this.timeout = this.$timeout(function () {
 	            _this.timer = _this.$interval(function () {
@@ -193,6 +193,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	    TouchSpinController.prototype.startSpinDown = function () {
 	        var _this = this;
+	        this.stopSpin();
 	        this.checkValue(true);
 	        if (this.touchSpinOptions.verticalButtons) {
 	            this.increment();
@@ -200,7 +201,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.decrement();
 	        }
 	        this.clickStart = Date.now();
-	        this.stopSpin();
 	        this.timeout = this.$timeout(function () {
 	            _this.timer = _this.$interval(function () {
 	                if (_this.touchSpinOptions.verticalButtons) {
@@ -211,17 +211,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }, _this.touchSpinOptions.stepInterval);
 	        }, this.touchSpinOptions.stepIntervalDelay);
 	    };
-	    TouchSpinController.prototype.stopSpin = function (force) {
-	        var _this = this;
-	        if (force || Date.now() - this.clickStart > this.touchSpinOptions.stepIntervalDelay) {
-	            this.$timeout.cancel(this.timeout);
-	            this.$interval.cancel(this.timer);
-	        } else if (!this.isButtonTouching && !this.isMouseButtonDown) {
-	            this.$timeout(function () {
-	                _this.$timeout.cancel(_this.timeout);
-	                _this.$interval.cancel(_this.timer);
-	            }, this.touchSpinOptions.stepIntervalDelay);
-	        }
+	    TouchSpinController.prototype.stopSpin = function () {
+	        this.$timeout.cancel(this.timeout);
+	        this.$interval.cancel(this.timer);
 	    };
 	    TouchSpinController.prototype.checkValue = function (preventSameValueChange) {
 	        if (this.ngModelController.$isEmpty(this.val)) {
@@ -251,19 +243,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	    TouchSpinController.prototype.keyUp = function (event) {
 	        var code = event.keyCode || event.which;
 	        if (code === 40 /* ArrowDown */ || code === 38 /* ArrowUp */) {
-	                this.stopSpin(true);
+	                this.stopSpin();
+	                this.isKeyDown = false;
 	                event.preventDefault();
 	            }
 	    };
 	    TouchSpinController.prototype.keyDown = function (event) {
 	        var code = event.keyCode || event.which;
-	        if (code === 38 /* ArrowUp */) {
-	                this.startSpinUp();
-	                event.preventDefault();
-	            } else if (code === 40 /* ArrowDown */) {
-	                this.startSpinDown();
-	                event.preventDefault();
+	        var isCodeUp = code === 38 /* ArrowUp */;
+	        var isCodeDown = code === 40 /* ArrowDown */;
+	        if (isCodeUp || isCodeDown) {
+	            if (!this.isKeyDown) {
+	                if (isCodeUp) {
+	                    this.startSpinUp();
+	                } else if (isCodeDown) {
+	                    this.startSpinDown();
+	                }
+	                this.isKeyDown = true;
 	            }
+	            event.preventDefault();
+	        }
 	    };
 	    TouchSpinController.prototype.mouseDown = function (event, increment) {
 	        this.isMouseButtonDown = true;
@@ -275,7 +274,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	    TouchSpinController.prototype.mouseUp = function (event) {
 	        this.isMouseButtonDown = false;
-	        this.stopSpin(true);
+	        this.stopSpin();
 	    };
 	    TouchSpinController.prototype.mouseLeave = function (event) {
 	        if (this.isMouseButtonDown) {

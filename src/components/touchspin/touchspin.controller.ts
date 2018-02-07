@@ -95,8 +95,8 @@ export class TouchSpinController {
 		}, this.touchSpinOptions.stepIntervalDelay);
 	}
 	public stopSpin() {
-		this.$timeout.cancel(this.timeout);
-		this.$interval.cancel(this.timer);
+        this.$timeout.cancel(this.timeout);
+        this.$interval.cancel(this.timer);
 	}
 	public checkValue(preventSameValueChange?: boolean) {
 		if (this.ngModelController.$isEmpty(this.val)) {
@@ -135,9 +135,9 @@ export class TouchSpinController {
     	let code = event.keyCode || event.which;
 
         if (code === Char.ArrowDown || code === Char.ArrowUp) {
-			this.stopSpin();
-			this.isKeyDown = false;
-			event.preventDefault();
+            this.stopSpin();
+            this.isKeyDown = false;
+            event.preventDefault();
         }
     }
 	public keyDown(event: KeyboardEvent) {

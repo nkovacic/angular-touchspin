@@ -173,13 +173,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	    TouchSpinController.prototype.startSpinUp = function () {
 	        var _this = this;
-	        this.stopSpin();
 	        this.checkValue(true);
 	        if (this.touchSpinOptions.verticalButtons) {
 	            this.decrement();
 	        } else {
 	            this.increment();
 	        }
+	        this.stopSpin(true);
 	        this.clickStart = Date.now();
 	        this.timeout = this.$timeout(function () {
 	            _this.timer = _this.$interval(function () {
@@ -193,7 +193,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	    TouchSpinController.prototype.startSpinDown = function () {
 	        var _this = this;
-	        this.stopSpin();
 	        this.checkValue(true);
 	        if (this.touchSpinOptions.verticalButtons) {
 	            this.increment();
@@ -201,6 +200,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.decrement();
 	        }
 	        this.clickStart = Date.now();
+	        this.stopSpin(true);
 	        this.timeout = this.$timeout(function () {
 	            _this.timer = _this.$interval(function () {
 	                if (_this.touchSpinOptions.verticalButtons) {
@@ -211,9 +211,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }, _this.touchSpinOptions.stepInterval);
 	        }, this.touchSpinOptions.stepIntervalDelay);
 	    };
-	    TouchSpinController.prototype.stopSpin = function () {
-	        this.$timeout.cancel(this.timeout);
-	        this.$interval.cancel(this.timer);
+	    TouchSpinController.prototype.stopSpin = function (force) {
+	        var _this = this;
+	        if (force || Date.now() - this.clickStart > this.touchSpinOptions.stepIntervalDelay) {
+	            this.$timeout.cancel(this.timeout);
+	            this.$interval.cancel(this.timer);
+	        } else if (!this.isButtonTouching && !this.isMouseButtonDown) {
+	            this.$timeout(function () {
+	                _this.$timeout.cancel(_this.timeout);
+	                _this.$interval.cancel(_this.timer);
+	            }, this.touchSpinOptions.stepIntervalDelay);
+	        }
 	    };
 	    TouchSpinController.prototype.checkValue = function (preventSameValueChange) {
 	        if (this.ngModelController.$isEmpty(this.val)) {
@@ -243,7 +251,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    TouchSpinController.prototype.keyUp = function (event) {
 	        var code = event.keyCode || event.which;
 	        if (code === 40 /* ArrowDown */ || code === 38 /* ArrowUp */) {
-	                this.stopSpin();
+	                this.stopSpin(true);
 	                this.isKeyDown = false;
 	                event.preventDefault();
 	            }
@@ -274,7 +282,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	    TouchSpinController.prototype.mouseUp = function (event) {
 	        this.isMouseButtonDown = false;
-	        this.stopSpin();
+	        this.stopSpin(true);
 	    };
 	    TouchSpinController.prototype.mouseLeave = function (event) {
 	        if (this.isMouseButtonDown) {

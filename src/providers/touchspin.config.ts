@@ -1,5 +1,7 @@
 import * as angular from 'angular';
+
 import { ITouchSpinConfig, ITouchSpinConfigProvider, ITouchSpinOptions} from '../angular-touchspin';
+import { StepDivisibilityType } from '../angular-touchspin.model';
 
 export class TouchSpinConfig implements ITouchSpinConfigProvider, angular.IServiceProvider {
 	private defaultTouchSpinOptions: ITouchSpinOptions;
@@ -19,6 +21,7 @@ export class TouchSpinConfig implements ITouchSpinConfigProvider, angular.IServi
 			mousewheel: true,
 			prefix: '',
 			postfix: '',
+			forceStepDivisibility: StepDivisibilityType.round,
 			stepInterval: 100,
 			stepIntervalDelay: 500,
 			verticalButtons: false,

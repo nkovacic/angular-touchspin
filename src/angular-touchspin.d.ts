@@ -12,6 +12,13 @@ export type ITouchSpinConfig = angularTouchspin.ITouchSpinConfig;
 export type ITouchSpinConfigProvider = angularTouchspin.ITouchSpinConfigProvider;
 
 declare namespace angularTouchspin {
+	enum StepDivisibilityType {
+		none,
+		ceil,
+		floor,
+		round
+	}
+
 	interface ITouchSpinOptions {
 		buttonDownClass?: string;	
 		buttonDownShow?: boolean;	
@@ -25,7 +32,7 @@ declare namespace angularTouchspin {
 		decimals?: number;
 		decimalsDelimiter?: string;
 		stepInterval?: number;
-		forceStepDivisibility?: string; // none | floor | round | ceil
+		forceStepDivisibility?: StepDivisibilityType; // default is 'round' ('none' | 'floor' | 'round' | 'ceil') 
 		inputReadOnly?: boolean;
 		stepIntervalDelay?: number;
 		verticalButtons?: boolean;

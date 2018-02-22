@@ -1,6 +1,7 @@
 import * as angular from 'angular';
 
 import { ITouchSpinOptions, ITouchSpinConfig } from '../../angular-touchspin';
+import { StepDivisibilityType } from '../../angular-touchspin.model';
 
 const enum Char {
 	ArrowDown = 40,
@@ -259,9 +260,7 @@ export class TouchSpinController {
 		});
 	}
 	private changeValue (value: number, supressNgModel?: boolean, supressChangeEvent?: boolean) {
-		let decimalValue = Math.pow(10, this.touchSpinOptions.decimals);
-
-		value = Math.round(value * decimalValue) / decimalValue;
+		value = this.roundAccordingToSettings(value);
 
 		this.val = value.toFixed(this.touchSpinOptions.decimals);
 
@@ -325,5 +324,24 @@ export class TouchSpinController {
 	}
 	private overwriteOldValue(value?: string) {
 		this.oldVal = value || this.val;
+	}
+	private roundAccordingToSettings(value: number) {
+		let decimalValue = Math.pow(10, this.touchSpinOptions.decimals);
+
+		switch (this.touchSpinOptions.forceStepDivisibility) {
+			case StepDivisibilityType.ceil:
+				value = Math.ceil(value * decimalValue) / decimalValue;
+				break;
+			case StepDivisibilityType.floor:
+				value = Math.floor(value * decimalValue) / decimalValue;
+				break;
+			case StepDivisibilityType.round:
+				value = Math.round(value * decimalValue) / decimalValue;
+				break;
+			default:
+				break;
+		}
+
+		return  value;
 	}
 }

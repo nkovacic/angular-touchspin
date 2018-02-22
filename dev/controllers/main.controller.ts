@@ -1,5 +1,7 @@
 import * as angular from 'angular';
+
 import { ITouchSpinOptions } from '../../src/angular-touchspin';
+import { StepDivisibilityType } from '../../src/angular-touchspin.model';
 
 export class MainController {
 	public touchSpinOptions: ITouchSpinOptions;
@@ -15,9 +17,9 @@ export class MainController {
 
 	constructor() {
 		this.currency = 10;
-		this.currency1 = 20;
-		this.currency2 = 30;
-		this.currency3 = 50;
+		this.currency1 = 20.99;
+		this.currency2 = 30.99 * 0.5;
+		this.currency3 = 50.99;
 		this.touchSpinDisabled = false;
 		this.touchSpinMin = 1;
 		this.touchSpinMax = 90;
@@ -27,6 +29,7 @@ export class MainController {
 			max: 100,
 			min: 0,
 			prefix: '$',
+			forceStepDivisibility: StepDivisibilityType.floor
 			//postfix: '%'
 		};
 

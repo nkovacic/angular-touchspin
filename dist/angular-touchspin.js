@@ -61,7 +61,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(4);
+	module.exports = __webpack_require__(5);
 
 
 /***/ },
@@ -74,28 +74,42 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 2 */
 /***/ function(module, exports) {
 
-	// removed by extract-text-webpack-plugin
+	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
+	var StepDivisibilityType;
+	(function (StepDivisibilityType) {
+	    StepDivisibilityType[StepDivisibilityType["none"] = 'none'] = "none";
+	    StepDivisibilityType[StepDivisibilityType["ceil"] = 'ceil'] = "ceil";
+	    StepDivisibilityType[StepDivisibilityType["floor"] = 'floor'] = "floor";
+	    StepDivisibilityType[StepDivisibilityType["round"] = 'round'] = "round";
+	})(StepDivisibilityType = exports.StepDivisibilityType || (exports.StepDivisibilityType = {}));
 
 /***/ },
 /* 3 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"input-group bootstrap-touchspin\" ng-class=\"{ 'bootstrap-touchspin-disabled': vm.disabled }\">\r\n    <span class=\"input-group-btn\" ng-if=\"!vm.touchSpinOptions.verticalButtons && vm.touchSpinOptions.buttonDownShow\">\r\n        <button ng-class=\"vm.touchSpinOptions.buttonDownClass\" type=\"button\" ng-disabled=\"vm.disabled\" \r\n            ng-mousedown=\"vm.mouseDown($event, false)\" ng-mouseup=\"vm.mouseUp($event)\" ng-mouseenter=\"vm.mouseEnter($event)\" ng-mouseleave=\"vm.mouseLeave($event)\"\r\n            nk-touchstart=\"vm.buttonTouchStart($event, false)\" nk-touchend=\"vm.buttonTouchEnd($event)\">\r\n            -\r\n        </button>\r\n    </span>\r\n    <span class=\"input-group-addon\" ng-if=\"vm.touchSpinOptions.prefix\" ng-bind=\"vm.touchSpinOptions.prefix\">\r\n    </span>\r\n    <input type=\"text\" ng-model=\"vm.val\" class=\"form-control\" ng-disabled=\"vm.disabled\" ng-blur=\"vm.checkValue()\" ng-focus=\"vm.focus()\" ng-keyup=\"vm.keyUp($event)\" \r\n    ng-keydown=\"vm.keyDown($event)\" ng-readonly=\"vm.touchSpinOptions.inputReadOnly\" />\r\n    <span class=\"input-group-addon\" ng-class=\"vm.touchSpinOptions.postfixExtraClass\" ng-if=\"vm.touchSpinOptions.postfix\" ng-bind=\"vm.touchSpinOptions.postfix\">\r\n    </span>\r\n    <span class=\"input-group-btn\" ng-if=\"!vm.touchSpinOptions.verticalButtons && vm.touchSpinOptions.buttonUpShow\">\r\n        <button class=\"btn btn-default\" ng-class=\"vm.touchSpinOptions.buttonUpClass\" type=\"button\" ng-disabled=\"vm.disabled\" \r\n            ng-mousedown=\"vm.mouseDown($event, true)\" ng-mouseup=\"vm.mouseUp($event)\" ng-mouseenter=\"vm.mouseEnter($event)\" ng-mouseleave=\"vm.mouseLeave($event)\"\r\n            nk-touchstart=\"vm.buttonTouchStart($event, false)\" nk-touchend=\"vm.buttonTouchEnd($event)\">\r\n            +\r\n        </button>\r\n    </span>\r\n    <span class=\"input-group-btn-vertical\" ng-if=\"vm.touchSpinOptions.verticalButtons && (vm.touchSpinOptions.buttonDownShow || vm.touchSpinOptions.buttonUpShow)\">\r\n        <button class=\"bootstrap-touchspin-up\" ng-class=\"vm.touchSpinOptions.buttonUpClass\" type=\"button\" ng-disabled=\"vm.disabled\" ng-show=\"vm.touchSpinOptions.buttonUpShow\"\r\n            ng-mousedown=\"vm.mouseDown($event, false)\" ng-mouseup=\"vm.mouseUp($event)\" ng-mouseenter=\"vm.mouseEnter($event)\" \r\n            ng-mouseleave=\"vm.mouseLeave($event)\" nk-touchstart=\"vm.buttonTouchStart($event, false)\" nk-touchend=\"vm.buttonTouchEnd($event)\">\r\n            <i ng-class=\"vm.touchSpinOptions.verticalUpClass\"></i>\r\n        </button>\r\n        <button class=\"bootstrap-touchspin-down\" ng-class=\"vm.touchSpinOptions.buttonUpClass\" type=\"button\" ng-disabled=\"vm.disabled\" ng-show=\"vm.touchSpinOptions.buttonDownShow\"\r\n            ng-mousedown=\"vm.mouseDown($event, true)\" ng-mouseup=\"vm.mouseUp($event)\" ng-mouseenter=\"vm.mouseEnter($event)\" \r\n            ng-mouseleave=\"vm.mouseLeave($event)\" nk-touchstart=\"vm.buttonTouchStart($event, true)\" nk-touchend=\"vm.buttonTouchEnd($event)\">\r\n            <i ng-class=\"vm.touchSpinOptions.verticalDownClass\"></i>\r\n        </button>\r\n    </span>\r\n</div>\r\n";
+	// removed by extract-text-webpack-plugin
 
 /***/ },
 /* 4 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	"use strict";
-	var angular_es6_1 = __webpack_require__(12);
-	var touchspin_directive_1 = __webpack_require__(8);
-	var touchend_directive_1 = __webpack_require__(6);
-	var touchstart_directive_1 = __webpack_require__(10);
-	var touchspin_config_1 = __webpack_require__(11);
-	module.exports = angular_es6_1.AngularES6.module('nk.touchspin').directive('touchSpin', touchspin_directive_1.TouchSpinDirective).directive('nkTouchend', touchend_directive_1.TouchEndDirective).directive('nkTouchstart', touchstart_directive_1.TouchStartDirective).provider('touchSpinConfig', touchspin_config_1.TouchSpinConfig).name;
+	module.exports = "<div class=\"input-group bootstrap-touchspin\" ng-class=\"{ 'bootstrap-touchspin-disabled': vm.disabled }\">\r\n    <span class=\"input-group-btn\" ng-if=\"!vm.touchSpinOptions.verticalButtons && vm.touchSpinOptions.buttonDownShow\">\r\n        <button ng-class=\"vm.touchSpinOptions.buttonDownClass\" type=\"button\" ng-disabled=\"vm.disabled\" \r\n            ng-mousedown=\"vm.mouseDown($event, false)\" ng-mouseup=\"vm.mouseUp($event)\" ng-mouseenter=\"vm.mouseEnter($event)\" ng-mouseleave=\"vm.mouseLeave($event)\"\r\n            nk-touchstart=\"vm.buttonTouchStart($event, false)\" nk-touchend=\"vm.buttonTouchEnd($event)\">\r\n            -\r\n        </button>\r\n    </span>\r\n    <span class=\"input-group-addon\" ng-if=\"vm.touchSpinOptions.prefix\" ng-bind=\"vm.touchSpinOptions.prefix\">\r\n    </span>\r\n    <input type=\"text\" ng-model=\"vm.val\" class=\"form-control\" ng-disabled=\"vm.disabled\" ng-blur=\"vm.checkValue()\" ng-focus=\"vm.focus()\" ng-keyup=\"vm.keyUp($event)\" \r\n    ng-keydown=\"vm.keyDown($event)\" ng-readonly=\"vm.touchSpinOptions.inputReadOnly\" />\r\n    <span class=\"input-group-addon\" ng-class=\"vm.touchSpinOptions.postfixExtraClass\" ng-if=\"vm.touchSpinOptions.postfix\" ng-bind=\"vm.touchSpinOptions.postfix\">\r\n    </span>\r\n    <span class=\"input-group-btn\" ng-if=\"!vm.touchSpinOptions.verticalButtons && vm.touchSpinOptions.buttonUpShow\">\r\n        <button class=\"btn btn-default\" ng-class=\"vm.touchSpinOptions.buttonUpClass\" type=\"button\" ng-disabled=\"vm.disabled\" \r\n            ng-mousedown=\"vm.mouseDown($event, true)\" ng-mouseup=\"vm.mouseUp($event)\" ng-mouseenter=\"vm.mouseEnter($event)\" ng-mouseleave=\"vm.mouseLeave($event)\"\r\n            nk-touchstart=\"vm.buttonTouchStart($event, false)\" nk-touchend=\"vm.buttonTouchEnd($event)\">\r\n            +\r\n        </button>\r\n    </span>\r\n    <span class=\"input-group-btn-vertical\" ng-if=\"vm.touchSpinOptions.verticalButtons && (vm.touchSpinOptions.buttonDownShow || vm.touchSpinOptions.buttonUpShow)\">\r\n        <button class=\"bootstrap-touchspin-up\" ng-class=\"vm.touchSpinOptions.buttonUpClass\" type=\"button\" ng-disabled=\"vm.disabled\" ng-show=\"vm.touchSpinOptions.buttonUpShow\"\r\n            ng-mousedown=\"vm.mouseDown($event, false)\" ng-mouseup=\"vm.mouseUp($event)\" ng-mouseenter=\"vm.mouseEnter($event)\" \r\n            ng-mouseleave=\"vm.mouseLeave($event)\" nk-touchstart=\"vm.buttonTouchStart($event, false)\" nk-touchend=\"vm.buttonTouchEnd($event)\">\r\n            <i ng-class=\"vm.touchSpinOptions.verticalUpClass\"></i>\r\n        </button>\r\n        <button class=\"bootstrap-touchspin-down\" ng-class=\"vm.touchSpinOptions.buttonUpClass\" type=\"button\" ng-disabled=\"vm.disabled\" ng-show=\"vm.touchSpinOptions.buttonDownShow\"\r\n            ng-mousedown=\"vm.mouseDown($event, true)\" ng-mouseup=\"vm.mouseUp($event)\" ng-mouseenter=\"vm.mouseEnter($event)\" \r\n            ng-mouseleave=\"vm.mouseLeave($event)\" nk-touchstart=\"vm.buttonTouchStart($event, true)\" nk-touchend=\"vm.buttonTouchEnd($event)\">\r\n            <i ng-class=\"vm.touchSpinOptions.verticalDownClass\"></i>\r\n        </button>\r\n    </span>\r\n</div>\r\n";
 
 /***/ },
 /* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var angular_es6_1 = __webpack_require__(13);
+	var touchspin_directive_1 = __webpack_require__(9);
+	var touchend_directive_1 = __webpack_require__(7);
+	var touchstart_directive_1 = __webpack_require__(11);
+	var touchspin_config_1 = __webpack_require__(12);
+	module.exports = angular_es6_1.AngularES6.module('nk.touchspin').directive('touchSpin', touchspin_directive_1.TouchSpinDirective).directive('nkTouchend', touchend_directive_1.TouchEndDirective).directive('nkTouchstart', touchstart_directive_1.TouchStartDirective).provider('touchSpinConfig', touchspin_config_1.TouchSpinConfig).name;
+
+/***/ },
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -128,12 +142,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.TouchEndController = TouchEndController;
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var touchend_controller_1 = __webpack_require__(5);
+	var touchend_controller_1 = __webpack_require__(6);
 	var TouchEndDirective = /** @class */(function () {
 	    function TouchEndDirective() {
 	        this.restrict = 'A';
@@ -144,12 +158,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.TouchEndDirective = TouchEndDirective;
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
 	var angular = __webpack_require__(1);
+	var angular_touchspin_model_1 = __webpack_require__(2);
 	var TouchSpinController = /** @class */(function () {
 	    TouchSpinController.$inject = ["$element", "$attrs", "$scope", "$interval", "$timeout", "touchSpinConfig"];
 	    function TouchSpinController($element, $attrs, $scope, $interval, $timeout, touchSpinConfig) {
@@ -352,8 +367,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	    TouchSpinController.prototype.changeValue = function (value, supressNgModel, supressChangeEvent) {
 	        var _this = this;
-	        var decimalValue = Math.pow(10, this.touchSpinOptions.decimals);
-	        value = Math.round(value * decimalValue) / decimalValue;
+	        value = this.roundAccordingToSettings(value);
 	        this.val = value.toFixed(this.touchSpinOptions.decimals);
 	        if (this.touchSpinOptions.decimalsDelimiter !== '.') {
 	            this.val = this.val.replace('.', ',');
@@ -401,18 +415,36 @@ return /******/ (function(modules) { // webpackBootstrap
 	    TouchSpinController.prototype.overwriteOldValue = function (value) {
 	        this.oldVal = value || this.val;
 	    };
+	    TouchSpinController.prototype.roundAccordingToSettings = function (value) {
+	        var decimalValue = Math.pow(10, this.touchSpinOptions.decimals);
+	        switch (this.touchSpinOptions.forceStepDivisibility) {
+	            case angular_touchspin_model_1.StepDivisibilityType.ceil:
+	                value = Math.ceil(value * decimalValue) / decimalValue;
+	                break;
+	            case angular_touchspin_model_1.StepDivisibilityType.floor:
+	                value = Math.floor(value * decimalValue) / decimalValue;
+	                break;
+	            case angular_touchspin_model_1.StepDivisibilityType.round:
+	                value = Math.round(value * decimalValue) / decimalValue;
+	                break;
+	            default:
+	                // code...
+	                break;
+	        }
+	        return value;
+	    };
 	    return TouchSpinController;
 	})();
 	exports.TouchSpinController = TouchSpinController;
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var touchspin_controller_1 = __webpack_require__(7);
-	__webpack_require__(2);
+	var touchspin_controller_1 = __webpack_require__(8);
+	__webpack_require__(3);
 	var TouchSpinDirective = /** @class */(function () {
 	    function TouchSpinDirective() {
 	        this.restrict = 'EA';
@@ -427,14 +459,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        };
 	        this.controller = touchspin_controller_1.TouchSpinController;
 	        this.controllerAs = 'vm';
-	        this.template = __webpack_require__(3);
+	        this.template = __webpack_require__(4);
 	    }
 	    return TouchSpinDirective;
 	})();
 	exports.TouchSpinDirective = TouchSpinDirective;
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -467,12 +499,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.TouchStartController = TouchStartController;
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var touchstart_controller_1 = __webpack_require__(9);
+	var touchstart_controller_1 = __webpack_require__(10);
 	var TouchStartDirective = /** @class */(function () {
 	    function TouchStartDirective() {
 	        this.restrict = 'A';
@@ -483,12 +515,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.TouchStartDirective = TouchStartDirective;
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
 	var angular = __webpack_require__(1);
+	var angular_touchspin_model_1 = __webpack_require__(2);
 	var TouchSpinConfig = /** @class */(function () {
 	    function TouchSpinConfig() {
 	        this.defaultTouchSpinOptions = {
@@ -505,6 +538,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            mousewheel: true,
 	            prefix: '',
 	            postfix: '',
+	            forceStepDivisibility: angular_touchspin_model_1.StepDivisibilityType.round,
 	            stepInterval: 100,
 	            stepIntervalDelay: 500,
 	            verticalButtons: false,
@@ -523,7 +557,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.TouchSpinConfig = TouchSpinConfig;
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";

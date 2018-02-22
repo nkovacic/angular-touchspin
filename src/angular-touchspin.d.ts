@@ -3,8 +3,6 @@
 // Definitions by: Niko Kovačič <https://github.com/nkovacic>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference types="angular" />
-
 import * as angular from 'angular';
 
 export type ITouchSpinOptions = angularTouchspin.ITouchSpinOptions;

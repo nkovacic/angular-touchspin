@@ -1,5 +1,5 @@
 /*!
-* angular-touchspin JavaScript Library v1.8.0
+* angular-touchspin JavaScript Library v1.8.2
 *
 * @license MIT
 *
@@ -428,7 +428,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	                value = Math.round(value * decimalValue) / decimalValue;
 	                break;
 	            default:
-	                // code...
 	                break;
 	        }
 	        return value;

@@ -326,6 +326,7 @@ export class TouchSpinController {
 	private overwriteOldValue(value?: string) {
 		this.oldVal = value || this.val;
 	}
+<<<<<<< HEAD
 	private roundAccordingToSettings(value: number) {
 		let decimalValue = Math.pow(10, this.touchSpinOptions.decimals);
 
@@ -345,4 +346,6 @@ export class TouchSpinController {
 
 		return  value;
 	}
+=======
+>>>>>>> 2ebfcf34d72aa2b8ca0621773e64b9518ee31149
 }

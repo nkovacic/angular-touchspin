@@ -273,13 +273,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	    TouchSpinController.prototype.keyDown = function (event) {
 	        var code = event.keyCode || event.which;
-	        if (code === 38 /* ArrowUp */) {
-	                this.startSpinUp();
-	                event.preventDefault();
-	            } else if (code === 40 /* ArrowDown */) {
-	                this.startSpinDown();
-	                event.preventDefault();
+	        var isCodeUp = code === 38 /* ArrowUp */;
+	        var isCodeDown = code === 40 /* ArrowDown */;
+	        if (isCodeUp || isCodeDown) {
+	            if (!this.isKeyDown) {
+	                if (isCodeUp) {
+	                    this.startSpinUp();
+	                } else if (isCodeDown) {
+	                    this.startSpinDown();
+	                }
+	                this.isKeyDown = true;
 	            }
+	            event.preventDefault();
+	        }
 	    };
 	    TouchSpinController.prototype.mouseDown = function (event, increment) {
 	        this.isMouseButtonDown = true;

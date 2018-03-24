@@ -6,7 +6,7 @@ import { StepDivisibilityType } from '../../angular-touchspin.model';
 const enum Char {
 	ArrowDown = 40,
 	ArrowUp = 38
-} 
+}
 
 export class TouchSpinController {
 	public disabled: boolean;
@@ -14,7 +14,7 @@ export class TouchSpinController {
 	public min: number;
 	public options: ITouchSpinOptions;
 	public val: string;
-	
+
 	private clickStart: number;
 	private focused: boolean;
 	private inputElement: angular.IAugmentedJQuery;
@@ -52,10 +52,9 @@ export class TouchSpinController {
 		}
 		else {
 			this.increment();
-		}	
+		}
 
-		this.stopSpin(true);
-
+        this.stopSpin(true);
 		this.clickStart = Date.now();
 
 		this.timeout = this.$timeout(() => {
@@ -65,7 +64,7 @@ export class TouchSpinController {
 				}
 				else {
 					this.increment();
-				}	
+				}
 			}, this.touchSpinOptions.stepInterval);
 		}, this.touchSpinOptions.stepIntervalDelay);
 	}
@@ -80,7 +79,7 @@ export class TouchSpinController {
 		}
 
 		this.clickStart = Date.now();
-		this.stopSpin();
+        this.stopSpin(true);
 
 		this.timeout = this.$timeout(() => {
 			this.timer = this.$interval(() => {
@@ -93,16 +92,16 @@ export class TouchSpinController {
 			}, this.touchSpinOptions.stepInterval);
 		}, this.touchSpinOptions.stepIntervalDelay);
 	}
-	public stopSpin(force?: boolean) {
-		if (force || Date.now() - this.clickStart > this.touchSpinOptions.stepIntervalDelay) {
-			this.$timeout.cancel(this.timeout);
-			this.$interval.cancel(this.timer);
-		} else if (!this.isButtonTouching && !this.isMouseButtonDown) {
-			this.$timeout(() => {
-				this.$timeout.cancel(this.timeout);
-				this.$interval.cancel(this.timer);
-			}, this.touchSpinOptions.stepIntervalDelay);
-		}
+    public stopSpin(force?: boolean) {
+        if (force || Date.now() - this.clickStart > this.touchSpinOptions.stepIntervalDelay) {
+            this.$timeout.cancel(this.timeout);
+            this.$interval.cancel(this.timer);
+        } else if (!this.isButtonTouching && !this.isMouseButtonDown) {
+            this.$timeout(() => {
+                this.$timeout.cancel(this.timeout);
+                this.$interval.cancel(this.timer);
+            }, this.touchSpinOptions.stepIntervalDelay);
+        }
 	}
 	public checkValue(preventSameValueChange?: boolean) {
 		if (this.ngModelController.$isEmpty(this.val)) {
@@ -142,21 +141,23 @@ export class TouchSpinController {
 
         if (code === Char.ArrowDown || code === Char.ArrowUp) {
             this.stopSpin(true);
-
+            this.isKeyDown = false;
             event.preventDefault();
         }
     }
 	public keyDown(event: KeyboardEvent) {
-    	let  code = event.keyCode || event.which;
-
-        if (code === Char.ArrowUp) {
-        	this.startSpinUp();
-
-        	event.preventDefault();
-        }
-        else if (code === Char.ArrowDown) {
-            this.startSpinDown();
-
+    	let code = event.keyCode || event.which;
+		let isCodeUp = code === 38 /* ArrowUp */;
+        let isCodeDown = code === 40 /* ArrowDown */;
+        if (isCodeUp || isCodeDown) {
+            if (!this.isKeyDown) {
+                if (isCodeUp) {
+                    this.startSpinUp();
+                } else if (isCodeDown) {
+                    this.startSpinDown();
+                }
+                this.isKeyDown = true;
+            }
             event.preventDefault();
         }
     }
@@ -168,11 +169,11 @@ export class TouchSpinController {
 		}
 		else {
 			this.startSpinDown();
-		}   	
+		}
     }
     public mouseUp(event: MouseEvent) {
 		this.isMouseButtonDown = false;
-		
+
     	this.stopSpin(true);
     }
     public mouseLeave(event: MouseEvent) {
@@ -188,11 +189,11 @@ export class TouchSpinController {
 		}
 		else {
 			this.startSpinDown();
-		}   
+		}
     }
     public buttonTouchEnd(event: TouchEvent) {
     	this.isButtonTouching = false;
-		
+
     	this.stopSpin();
     }
 
@@ -239,7 +240,7 @@ export class TouchSpinController {
 			this.ngModelController.$validators['max'] = (modelValue: number, viewValue: number) => {
 				return modelValue < this.max;
 			}
-		}		
+		}
 	}
 	private prepareOptions() {
 		this.prepareTouchspinOptions();
@@ -270,7 +271,7 @@ export class TouchSpinController {
 
 		if (!supressNgModel) {
 			this.ngModelController.$setViewValue(value);
-		}	
+		}
 
 
 
@@ -325,6 +326,7 @@ export class TouchSpinController {
 	private overwriteOldValue(value?: string) {
 		this.oldVal = value || this.val;
 	}
+<<<<<<< HEAD
 	private roundAccordingToSettings(value: number) {
 		let decimalValue = Math.pow(10, this.touchSpinOptions.decimals);
 
@@ -344,4 +346,6 @@ export class TouchSpinController {
 
 		return  value;
 	}
+=======
+>>>>>>> 2ebfcf34d72aa2b8ca0621773e64b9518ee31149
 }

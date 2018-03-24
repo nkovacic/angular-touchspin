@@ -215,7 +215,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.decrement();
 	        }
 	        this.clickStart = Date.now();
-	        this.stopSpin();
+	        this.stopSpin(true);
 	        this.timeout = this.$timeout(function () {
 	            _this.timer = _this.$interval(function () {
 	                if (_this.touchSpinOptions.verticalButtons) {
@@ -267,18 +267,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var code = event.keyCode || event.which;
 	        if (code === 40 /* ArrowDown */ || code === 38 /* ArrowUp */) {
 	                this.stopSpin(true);
+	                this.isKeyDown = false;
 	                event.preventDefault();
 	            }
 	    };
 	    TouchSpinController.prototype.keyDown = function (event) {
 	        var code = event.keyCode || event.which;
-	        if (code === 38 /* ArrowUp */) {
-	                this.startSpinUp();
-	                event.preventDefault();
-	            } else if (code === 40 /* ArrowDown */) {
-	                this.startSpinDown();
-	                event.preventDefault();
+	        var isCodeUp = code === 38 /* ArrowUp */;
+	        var isCodeDown = code === 40 /* ArrowDown */;
+	        if (isCodeUp || isCodeDown) {
+	            if (!this.isKeyDown) {
+	                if (isCodeUp) {
+	                    this.startSpinUp();
+	                } else if (isCodeDown) {
+	                    this.startSpinDown();
+	                }
+	                this.isKeyDown = true;
 	            }
+	            event.preventDefault();
+	        }
 	    };
 	    TouchSpinController.prototype.mouseDown = function (event, increment) {
 	        this.isMouseButtonDown = true;

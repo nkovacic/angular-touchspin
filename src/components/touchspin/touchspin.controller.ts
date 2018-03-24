@@ -45,8 +45,6 @@ export class TouchSpinController {
 		this.initializeEvents();
 	}
 	public startSpinUp () {
-		this.stopSpin();
-
 		this.checkValue(true);
 
 		if (this.touchSpinOptions.verticalButtons) {
@@ -56,6 +54,7 @@ export class TouchSpinController {
 			this.increment();
 		}
 
+        this.stopSpin(true);
 		this.clickStart = Date.now();
 
 		this.timeout = this.$timeout(() => {
@@ -70,8 +69,6 @@ export class TouchSpinController {
 		}, this.touchSpinOptions.stepIntervalDelay);
 	}
 	public startSpinDown() {
-		this.stopSpin();
-
 		this.checkValue(true);
 
 		if (this.touchSpinOptions.verticalButtons) {
@@ -82,6 +79,7 @@ export class TouchSpinController {
 		}
 
 		this.clickStart = Date.now();
+        this.stopSpin(true);
 
 		this.timeout = this.$timeout(() => {
 			this.timer = this.$interval(() => {
@@ -94,9 +92,16 @@ export class TouchSpinController {
 			}, this.touchSpinOptions.stepInterval);
 		}, this.touchSpinOptions.stepIntervalDelay);
 	}
-	public stopSpin() {
-        this.$timeout.cancel(this.timeout);
-        this.$interval.cancel(this.timer);
+    public stopSpin(force?: boolean) {
+        if (force || Date.now() - this.clickStart > this.touchSpinOptions.stepIntervalDelay) {
+            this.$timeout.cancel(this.timeout);
+            this.$interval.cancel(this.timer);
+        } else if (!this.isButtonTouching && !this.isMouseButtonDown) {
+            this.$timeout(() => {
+                this.$timeout.cancel(this.timeout);
+                this.$interval.cancel(this.timer);
+            }, this.touchSpinOptions.stepIntervalDelay);
+        }
 	}
 	public checkValue(preventSameValueChange?: boolean) {
 		if (this.ngModelController.$isEmpty(this.val)) {
@@ -135,7 +140,7 @@ export class TouchSpinController {
     	let code = event.keyCode || event.which;
 
         if (code === Char.ArrowDown || code === Char.ArrowUp) {
-            this.stopSpin();
+            this.stopSpin(true);
             this.isKeyDown = false;
             event.preventDefault();
         }
@@ -169,7 +174,7 @@ export class TouchSpinController {
     public mouseUp(event: MouseEvent) {
 		this.isMouseButtonDown = false;
 
-    	this.stopSpin();
+    	this.stopSpin(true);
     }
     public mouseLeave(event: MouseEvent) {
     	if (this.isMouseButtonDown) {

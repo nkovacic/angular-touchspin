@@ -1,5 +1,5 @@
 /*!
-* angular-touchspin JavaScript Library v1.8.2
+* angular-touchspin JavaScript Library v1.8.3
 *
 * @license MIT
 *
@@ -214,8 +214,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        } else {
 	            this.decrement();
 	        }
+	        this.stopSpin(true);
 	        this.clickStart = Date.now();
-	        this.stopSpin();
 	        this.timeout = this.$timeout(function () {
 	            _this.timer = _this.$interval(function () {
 	                if (_this.touchSpinOptions.verticalButtons) {
@@ -267,16 +267,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var code = event.keyCode || event.which;
 	        if (code === 40 /* ArrowDown */ || code === 38 /* ArrowUp */) {
 	                this.stopSpin(true);
+	                this.isKeyDown = false;
 	                event.preventDefault();
 	            }
 	    };
 	    TouchSpinController.prototype.keyDown = function (event) {
 	        var code = event.keyCode || event.which;
-	        if (code === 38 /* ArrowUp */) {
-	                this.startSpinUp();
-	                event.preventDefault();
-	            } else if (code === 40 /* ArrowDown */) {
-	                this.startSpinDown();
+	        if (code === 38 /* ArrowUp */ || code === 40 /* ArrowDown */) {
+	                if (!this.isKeyDown) {
+	                    if (code == 38 /* ArrowUp */) {
+	                            this.startSpinUp();
+	                        } else {
+	                        this.startSpinDown();
+	                    }
+	                    this.isKeyDown = true;
+	                }
 	                event.preventDefault();
 	            }
 	    };

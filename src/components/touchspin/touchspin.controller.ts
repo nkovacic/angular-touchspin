@@ -19,6 +19,7 @@ export class TouchSpinController {
 	private focused: boolean;
 	private inputElement: angular.IAugmentedJQuery;
 	private isButtonTouching: boolean;
+	private isKeyDown: boolean;
 	private isMouseButtonDown: boolean;
 	private numberRegex: RegExp;
 	private ngModelController: angular.INgModelController;
@@ -78,9 +79,10 @@ export class TouchSpinController {
 		else {
 			this.decrement();
 		}
-
+		
+		this.stopSpin(true);
+		
 		this.clickStart = Date.now();
-		this.stopSpin();
 
 		this.timeout = this.$timeout(() => {
 			this.timer = this.$interval(() => {
@@ -142,23 +144,28 @@ export class TouchSpinController {
 
         if (code === Char.ArrowDown || code === Char.ArrowUp) {
             this.stopSpin(true);
+            this.isKeyDown = false;
 
             event.preventDefault();
         }
     }
 	public keyDown(event: KeyboardEvent) {
-    	let  code = event.keyCode || event.which;
+    	let code = event.keyCode || event.which;
 
-        if (code === Char.ArrowUp) {
-        	this.startSpinUp();
+    	if (code === Char.ArrowUp || code === Char.ArrowDown) {
+    		if (!this.isKeyDown) {
+    			if (code == Char.ArrowUp) {
+    				this.startSpinUp();
+    			}
+    			else {
+    				this.startSpinDown();
+    			}
 
-        	event.preventDefault();
-        }
-        else if (code === Char.ArrowDown) {
-            this.startSpinDown();
+    			this.isKeyDown = true;
+    		}
 
-            event.preventDefault();
-        }
+    		event.preventDefault();
+    	}
     }
     public mouseDown(event: MouseEvent, increment: boolean) {
     	this.isMouseButtonDown = true;

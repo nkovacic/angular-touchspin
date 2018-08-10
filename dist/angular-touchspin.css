@@ -1,5 +1,5 @@
 /*!
-* angular-touchspin JavaScript Library v1.8.3
+* angular-touchspin JavaScript Library v1.8.4
 *
 * @license MIT
 *

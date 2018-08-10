@@ -168,14 +168,16 @@ export class TouchSpinController {
     	}
     }
     public mouseDown(event: MouseEvent, increment: boolean) {
-    	this.isMouseButtonDown = true;
+	    if (!this.isButtonTouching) {
+	    	this.isMouseButtonDown = true;
 
-		if (increment) {
-			this.startSpinUp();
-		}
-		else {
-			this.startSpinDown();
-		}   	
+			if (increment) {
+				this.startSpinUp();
+			}
+			else {
+				this.startSpinDown();
+			}   
+		}	
     }
     public mouseUp(event: MouseEvent) {
 		this.isMouseButtonDown = false;

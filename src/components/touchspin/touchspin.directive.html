@@ -15,7 +15,7 @@
     <span class="input-group-btn" ng-if="!vm.touchSpinOptions.verticalButtons && vm.touchSpinOptions.buttonUpShow">
         <button class="btn btn-default" ng-class="vm.touchSpinOptions.buttonUpClass" type="button" ng-disabled="vm.disabled" 
             ng-mousedown="vm.mouseDown($event, true)" ng-mouseup="vm.mouseUp($event)" ng-mouseenter="vm.mouseEnter($event)" ng-mouseleave="vm.mouseLeave($event)"
-            nk-touchstart="vm.buttonTouchStart($event, false)" nk-touchend="vm.buttonTouchEnd($event)">
+            nk-touchstart="vm.buttonTouchStart($event, true)" nk-touchend="vm.buttonTouchEnd($event)">
             +
         </button>
     </span>

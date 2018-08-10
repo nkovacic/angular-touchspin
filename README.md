@@ -1,8 +1,5 @@
 # Angular Touchspin
 
-[![Build Status](http://img.shields.io/travis/nkovacic/angular-touchspin/master.svg?style=flat-square)](https://travis-ci.org/nkovacic/angular-touchspin)
-[![Code Climate](http://img.shields.io/codeclimate/github/nkovacic/angular-touchspin.svg?style=flat-square)](https://codeclimate.com/github/nkovacic/angular-touchspin)
-[![Test Coverage](http://img.shields.io/codeclimate/coverage/github/nkovacic/angular-touchspin.svg?style=flat-square)](https://codeclimate.com/github/nkovacic/angular-touchspin)
 [![License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](http://www.opensource.org/licenses/MIT)
 [![NPM Release](https://img.shields.io/npm/v/angular-touchspin.svg?style=flat-square)](https://www.npmjs.org/package/angular-touchspin)
 [![NPM Monthly Downloads](https://img.shields.io/npm/dm/angular-touchspin.svg?style=flat-square)](https://www.npmjs.org/package/angular-touchspin)

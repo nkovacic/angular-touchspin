@@ -12,9 +12,11 @@ gulp.task('scripts:build', function(callback) {
 	// run webpack
 	webpack(webpackConfig(conf.tags.build), function(err, stats) {
 		if(err) throw new gutil.PluginError("scripts:build", err);
+		
 		gutil.log("scripts:build", stats.toString({
 			colors: true
 		}));
+
 		callback();
 	});
 });

@@ -1,10 +1,8 @@
 import { AngularES6 } from '../src/utilities/angular-es6';
-import { ITouchSpinConfigProvider, ITouchSpinOptions } from '../src/angular-touchspin';
+import { default as touchspinModule, ITouchSpinConfigProvider, ITouchSpinOptions } from '../src/angular-touchspin';
 
 import './styles/vendor';
 import 'font-awesome-webpack';
-
-let touchspinModule = require<string>('../src/angular-touchspin.module');
 
 import { MainController } from './controllers/main.controller';
 

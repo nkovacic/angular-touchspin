@@ -4,7 +4,7 @@ import { TouchEndDirective } from './components/touchend/touchend.directive';
 import { TouchStartDirective } from './components/touchstart/touchstart.directive';
 import { TouchSpinConfig } from './providers/touchspin.config';
 
-export = AngularES6
+export default AngularES6
 	.module('nk.touchspin')
 	.directive('touchSpin', TouchSpinDirective)
 	.directive('nkTouchend', TouchEndDirective)

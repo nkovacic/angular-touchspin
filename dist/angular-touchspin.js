@@ -1,5 +1,5 @@
 /*!
-* angular-touchspin JavaScript Library v1.8.4
+* angular-touchspin JavaScript Library v2.0.0
 *
 * @license MIT
 *
@@ -101,12 +101,13 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var angular_es6_1 = __webpack_require__(13);
 	var touchspin_directive_1 = __webpack_require__(9);
 	var touchend_directive_1 = __webpack_require__(7);
 	var touchstart_directive_1 = __webpack_require__(11);
 	var touchspin_config_1 = __webpack_require__(12);
-	module.exports = angular_es6_1.AngularES6.module('nk.touchspin').directive('touchSpin', touchspin_directive_1.TouchSpinDirective).directive('nkTouchend', touchend_directive_1.TouchEndDirective).directive('nkTouchstart', touchstart_directive_1.TouchStartDirective).provider('touchSpinConfig', touchspin_config_1.TouchSpinConfig).name;
+	exports["default"] = angular_es6_1.AngularES6.module('nk.touchspin').directive('touchSpin', touchspin_directive_1.TouchSpinDirective).directive('nkTouchend', touchend_directive_1.TouchEndDirective).directive('nkTouchstart', touchstart_directive_1.TouchStartDirective).provider('touchSpinConfig', touchspin_config_1.TouchSpinConfig).name;
 
 /***/ },
 /* 6 */

@@ -39,8 +39,11 @@ Include script tags similar to the following:
 <script src='/node_modules/angular-touchspin/dist/angular-touchspin.min.js'></script>
 ```
 Install using commonjs (eg componentjs, Webpack, Browserify):
-```
-angular.module('myModule', [require('angular-touchspin')]);
+```javascript
+import { default as touchspinModule } from 'angular-touchspin';
+import 'angular-touchspin/dist/angular-touchspin.css'; 
+
+angular.module('myModule', [touchspinModule]);
 ```
 For CSS support with Webpack, install the style-loader, css-loader (and postcss-loader) and configure the loader in your webpack.config.js similar to the following:
 ```
@@ -56,6 +59,10 @@ Download the code from [https://github.com/nkovacic/angular-touchspin/releases/l
 <link rel='stylesheet' href='/path/to/unzipped/files/dist/angular-touchspin.min.css'>
 <script src='/path/to/unzipped/files/dist/angular-touchspin.min.js'></script>
 ```
+
+### Demo
+
+The demo can be found on [stackblitz](https://stackblitz.com/edit/angular-touchspin-example) and features all the examples found in the [dev](https://github.com/nkovacic/angular-touchspin/tree/master/dev) folder in this repository.
 
 ### Usage
 
